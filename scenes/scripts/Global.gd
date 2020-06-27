@@ -1,7 +1,7 @@
 extends Node
 
 const UP_DIRECTION  = Vector2(0,-1)
-const GRAVITY = Vector2(0,10)
+const GRAVITY = Vector2(0,980)
 
 const SOUNDS = {
 	"shoot" : [

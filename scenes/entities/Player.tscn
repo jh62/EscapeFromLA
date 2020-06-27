@@ -493,7 +493,7 @@ scale = Vector2( 1.22182, 1 )
 texture = ExtResource( 1 )
 flip_h = true
 region_enabled = true
-region_rect = Rect2( 138, 4, 39, 41 )
+region_rect = Rect2( 499, 5, 39, 41 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle_e"

@@ -2,8 +2,20 @@ extends KinematicBody2D
 
 var dir = Vector2(randi()%1-1,0)
 
+var velocity : Vector2 = Vector2.ZERO
+
 export(int) var health := 100
 export(float) var speed := 20
+
+onready var state = STATES.IDLE
+
+enum STATES {
+	IDLE,
+	MOVING,
+	RUNNING,
+	JUMPING
+	DIYING
+}
 
 class_name Enemy
 
@@ -14,6 +26,10 @@ func _process(delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
+	if state == STATES.DIYING:
+		if !$AnimationPlayer.is_playing():
+			queue_free()
+		return
 	if $RaycastRoot/RayCastLeft.is_colliding() && dir.x == -1 || $RaycastRoot/RayCastRight.is_colliding() && dir.x == 1:
 		move_and_slide(dir * speed)
 
@@ -28,4 +44,11 @@ func _on_TimerThink_timeout() -> void:
 		dir = Vector2(1,0)
 
 func on_hit(attacker) -> void:
+	health -= attacker.damage
+	if health <= 0:
+		state = STATES.DIYING
+		if dir.x < 0:
+			$AnimationPlayer.play("die_w")
+		else:
+			$AnimationPlayer.play("die_e")
 	print("ouch!")
