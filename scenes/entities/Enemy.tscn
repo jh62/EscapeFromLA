@@ -1,26 +1,24 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/ARMob.png" type="Texture" id=1]
 [ext_resource path="res://scenes/scripts/Enemy.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
 resource_name = "die_e"
-length = 0.8
-loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/path = NodePath("Sprite:flip_h")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Rect2( 613, 17, 27, 21 ), Rect2( 640.43, 17, 26, 21 ), Rect2( 672, 29, 30, 9 ), Rect2( 704, 34, 32, 4 ) ]
+"values": [ false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -29,39 +27,25 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ false, false, false, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 8 ) ]
+"values": [ 19, 20, 21, 22 ]
 }
 
 [sub_resource type="Animation" id=2]
 resource_name = "die_w"
-length = 0.8
-loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/path = NodePath("Sprite:flip_h")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Rect2( 613, 17, 27, 21 ), Rect2( 640.43, 17, 26, 21 ), Rect2( 672, 29, 30, 9 ), Rect2( 704, 34, 32, 4 ) ]
+"values": [ true ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -70,90 +54,97 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true, false, false, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 8 ) ]
+"values": [ 19, 20, 21, 22 ]
 }
 
 [sub_resource type="Animation" id=3]
 resource_name = "idle_e"
+length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/path = NodePath("Sprite:flip_h")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Rect2( 8, 10, 20, 28 ), Rect2( 40, 11, 20, 27 ), Rect2( 72, 11, 20, 27 ) ]
+"values": [ false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ false, false, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:offset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ Vector2( 0, 0 ) ]
+"values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 resource_name = "idle_w"
+length = 0.6
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/path = NodePath("Sprite:flip_h")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Rect2( 8, 10, 20, 28 ), Rect2( 40, 11, 20, 27 ), Rect2( 72, 11, 20, 27 ) ]
+"values": [ true ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:flip_h")
+tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ true, false, false ]
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "run_e"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 11, 12, 13, 14, 15, 16, 17, 18 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:offset")
+tracks/2/path = NodePath("ShootRay:cast_to")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -161,46 +152,184 @@ tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 100, 0 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "run_w"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ Vector2( 0, 0 ) ]
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 11, 12, 13, 14, 15, 16, 17, 18 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ShootRay:cast_to")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -100, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "shoot_e"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 3, 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ShootRay:cast_to")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 100, 0 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "shoot_w"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:flip_h")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 3, 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ShootRay:cast_to")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -100, 0 ) ]
 }
 
 [sub_resource type="CapsuleShape2D" id=5]
-radius = 13.3707
-height = 8.5918
+radius = 8.24344
+height = 25.1503
 
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 2 )
 
+[node name="ShootRay" type="RayCast2D" parent="."]
+position = Vector2( 0, -28 )
+scale = Vector2( 1.5, 1.5 )
+enabled = true
+cast_to = Vector2( -100, 0 )
+collision_mask = 2
+
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 1 )
+offset = Vector2( 0, -19 )
 flip_h = true
-region_enabled = true
+hframes = 24
+frame = 3
 region_rect = Rect2( 8, 10, 20, 28 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle_e"
 anims/die_e = SubResource( 1 )
 anims/die_w = SubResource( 2 )
 anims/idle_e = SubResource( 3 )
-anims/idle_w = SubResource( 4 )
+anims/idle_w = SubResource( 6 )
+anims/run_e = SubResource( 7 )
+anims/run_w = SubResource( 8 )
+anims/shoot_e = SubResource( 9 )
+anims/shoot_w = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.629974, 0.944939 )
+position = Vector2( 0, -20 )
 shape = SubResource( 5 )
 
 [node name="RaycastRoot" type="Position2D" parent="."]
 
 [node name="RayCastRight" type="RayCast2D" parent="RaycastRoot"]
-position = Vector2( 15, -24 )
+position = Vector2( 10, 0 )
 enabled = true
+cast_to = Vector2( 0, 10 )
 
 [node name="RayCastLeft" type="RayCast2D" parent="RaycastRoot"]
-position = Vector2( -8.94387, -24 )
+position = Vector2( -10, 0 )
 enabled = true
+cast_to = Vector2( 0, 10 )
 
 [node name="TimerThink" type="Timer" parent="."]
-autostart = true
 [connection signal="timeout" from="TimerThink" to="." method="_on_TimerThink_timeout"]

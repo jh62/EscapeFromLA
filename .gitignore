@@ -1,1 +1,8 @@
+<<<<<<< HEAD
 .import
+=======
+# Godot-specific ignores
+.import/
+export.cfg
+export_presets.cfg
+>>>>>>> 8d4159409672e861efb6e4262ce8d48610cc845c

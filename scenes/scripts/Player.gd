@@ -13,6 +13,7 @@ enum STATES {
 }
 
 export(float) var speed := 180.0
+export var damage : float = 50
 
 onready var anim_player : AnimationPlayer = $AnimationPlayer
 onready var audio = $AudioStreamPlayer
@@ -86,16 +87,15 @@ class IdleState extends State:
 		else:
 			player.anim_player.play("idle_e" if player.dir.x > 0 else "idle_w")
 
-	func _physics_process(delta):
-		player.move_and_slide((player.vel + Global.GRAVITY) * player.speed, Vector2(0,-1))
-
-	func input(event : InputEvent):
-		if event.is_action_pressed("jump") && player.is_on_floor():
-			var state := JumpState.new(player, event.get_action_strength("jump"))
+		#Todo esto lo saque de input ya que esa funcion solo se ejecuta si hay algun evento
+		#Eso hacía que si yo mantenia una tecla presionada y no cambiaba nada, al caer al suelo
+		#a veces la velocidad estaba mal
+		if Input.is_action_just_pressed("jump") && player.is_on_floor():
+			var state := JumpState.new(player, Input.get_action_strength("jump"))
 			player.change_state(state)
 			return
 
-		if !player.is_shooting() && event.is_action_pressed("shoot"):
+		if !player.is_shooting() && Input.is_action_just_pressed("shoot"):
 			player.shoot()
 
 		# si usas event tiene un delay feo... que onda?
@@ -103,21 +103,38 @@ class IdleState extends State:
 		if dir != 0:
 			player.dir.x = dir
 
-		player.vel.x = dir
+		player.vel.x = dir*player.speed
+		# Agregué esto simplemente para que no quede la animación de correr mientras caes cuando te caiste por un borde
+		if !player.is_on_floor():
+			var state := JumpState.new(player, 0)
+			player.change_state(state)
+			return
+		
+	func _physics_process(delta):
+		player.vel += Global.GRAVITY*delta
+		player.vel = player.move_and_slide((player.vel ), Vector2(0,-1))
 
 class JumpState extends State:
 	onready var jump_force = Vector2()
 
 	func _init(p, force).(p) -> void:
-		jump_force = Vector2(p.vel.x, -8 * force)
+		jump_force = Vector2(0, -500 * force)
+		player.vel += jump_force
 
 	func _process(delta):
 		player.anim_player.play("jump_e" if player.dir.x > 0 else "jump_w")
 
 	func _physics_process(delta):
-		player.move_and_slide((player.vel + jump_force) * player.speed,Global.UP_DIRECTION)
-		jump_force.x = lerp(jump_force.x, 0, .01)
-		jump_force.y = lerp(jump_force.y, Global.GRAVITY.y, .05)
+		# move_and_slide devuelve la velocidad correcta luego del calculos de colisiones. 
+		# hay que actualizar la variable de velocidad de esa forma, sino se sigue acumulando la gravedad
+		# y cuando caigas de un borde vas a caer muy rápido
+		# Además, move and slide toma como parámetro una velocidad, ya que internamente
+		# multiplica por delta para obtener la posicion. Por lo tanto, la gravedad la debemos
+		# multiplicar por delta para transformarla en velocidad, antes de sumarla. Esto asegura que el 
+		# movimiento sesa consistente entre frames.
+		player.vel += Global.GRAVITY*delta
+		player.vel = player.move_and_slide((player.vel),Global.UP_DIRECTION)
+		
 
 		if player.is_on_floor():
 			if  !Input.is_action_pressed("right") && !Input.is_action_pressed("left"):
@@ -125,6 +142,15 @@ class JumpState extends State:
 			var state := IdleState.new(player)
 			player.change_state(state)
 			return
+		else:
+			#saque lo del force en x en physics y agregué esto aca para darle mas control al salto
+			var dir : int = 0
+			if  Input.is_action_pressed("right"):
+				dir += 1
+			elif Input.is_action_pressed("left"):
+				dir -= 1
+			player.vel.x = lerp(player.vel.x, dir*player.speed, 0.05)
+			
 
 	func input(event : InputEvent):
 		pass
