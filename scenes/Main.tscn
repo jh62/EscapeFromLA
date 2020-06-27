@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/entities/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/maps/Level1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/entities/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/scripts/Main.gd" type="Script" id=4]
+
+[node name="Main" type="Node"]
+script = ExtResource( 4 )
+
+[node name="TileMap" parent="." instance=ExtResource( 2 )]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 21, 334 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2( 10.8284, 68.4645 )
+current = true
+zoom = Vector2( 0.5, 0.5 )
+limit_left = 0
+limit_top = 0
+limit_right = 1000000
+limit_bottom = 367
+limit_smoothed = true
+smoothing_enabled = true
+smoothing_speed = 10.0
+drag_margin_left = 0.0
+drag_margin_top = 0.0
+drag_margin_right = 0.0
+drag_margin_bottom = 0.0
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="Enemy" parent="." instance=ExtResource( 3 )]
+position = Vector2( 301.418, 331 )
