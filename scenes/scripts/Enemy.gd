@@ -13,25 +13,50 @@ enum STATES {
 	IDLE,
 	MOVING,
 	RUNNING,
-	JUMPING
+	JUMPING,
+	SHOOTING,
 	DIYING
 }
 
 class_name Enemy
 
 func _ready() -> void:
+	#randomize es para que cambie la seed de randi, sino siempre usa la misma
+	randomize()
+	state = STATES.MOVING
 	pass
 
 func _process(delta: float) -> void:
-	pass
-
-func _physics_process(delta: float) -> void:
 	if state == STATES.DIYING:
 		if !$AnimationPlayer.is_playing():
 			queue_free()
 		return
-	if $RaycastRoot/RayCastLeft.is_colliding() && dir.x == -1 || $RaycastRoot/RayCastRight.is_colliding() && dir.x == 1:
-		move_and_slide(dir * speed)
+	if state == STATES.MOVING:
+		if $ShootRay.is_colliding():
+			state = STATES.SHOOTING
+			return
+		if !$RaycastRoot/RayCastLeft.is_colliding():
+			dir.x = 1
+		elif !$RaycastRoot/RayCastRight.is_colliding():
+			dir.x = -1
+		if dir.x < 0:
+			$AnimationPlayer.play("run_w")
+		else:
+			$AnimationPlayer.play("run_e")
+		velocity = speed*dir
+	if state == STATES.SHOOTING:
+		velocity.x = 0
+		if dir.x < 0:
+			$AnimationPlayer.current_animation = ("shoot_w")
+		else:
+			$AnimationPlayer.current_animation = ("shoot_e")
+		if !$ShootRay.is_colliding():
+			state = STATES.MOVING
+
+func _physics_process(delta: float) -> void:
+	# misma aclaracion que en player
+	velocity += Global.GRAVITY*delta
+	velocity = move_and_slide(velocity)
 
 func _on_TimerThink_timeout() -> void:
 	if .85 > randf():
@@ -47,6 +72,7 @@ func on_hit(attacker) -> void:
 	health -= attacker.damage
 	if health <= 0:
 		state = STATES.DIYING
+		velocity = Vector2.ZERO
 		if dir.x < 0:
 			$AnimationPlayer.play("die_w")
 		else:
