@@ -1,5 +1,6 @@
 extends Node
 
+const DROPDOWN_MIN_Y = 299 # para poder saltar hacia abajo en plataformas
 const UP_DIRECTION  = Vector2(0,-1)
 const GRAVITY = Vector2(0,980)
 

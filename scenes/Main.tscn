@@ -1,25 +1,39 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/maps/Level1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/entities/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/scripts/Main.gd" type="Script" id=4]
+[ext_resource path="res://scenes/entities/Glider.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/skill-desc_0003_bg.png" type="Texture" id=6]
+[ext_resource path="res://scenes/entities/BigBox.tscn" type="PackedScene" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 88, 585 )
 
 [node name="Main" type="Node"]
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -331.0 ]
+}
 
-[node name="TileMap" parent="." instance=ExtResource( 2 )]
+[node name="Map" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0.999985, 0 )
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 21, 334 )
+[node name="Glider" parent="Map" instance=ExtResource( 5 )]
+position = Vector2( 2148, 76 )
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Player" parent="Map" instance=ExtResource( 1 )]
+position = Vector2( 158, 92 )
+
+[node name="Camera2D" type="Camera2D" parent="Map/Player"]
+position = Vector2( 0, -3 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
 limit_left = 0
 limit_top = 0
 limit_right = 1000000
-limit_bottom = 367
+limit_bottom = 352
 limit_smoothed = true
 smoothing_enabled = true
 smoothing_speed = 10.0
@@ -30,5 +44,35 @@ drag_margin_bottom = 0.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
-[node name="Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 301.418, 331 )
+[node name="Enemy" parent="Map" instance=ExtResource( 3 )]
+position = Vector2( 488, 317 )
+
+[node name="BigBox" parent="Map" instance=ExtResource( 7 )]
+position = Vector2( 848, 320 )
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 2371, 270 )
+collision_layer = 0
+collision_mask = 2
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 0, 0, 0, 0 )
+margin_left = 1846.0
+margin_right = 2852.0
+margin_bottom = 353.0
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="_on_picked_up" from="Map/Glider" to="Map/Player" method="_on_Glider__on_picked_up"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

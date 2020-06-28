@@ -92,7 +92,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 320, 0 ) ]
+"values": [ Vector2( 160, 0 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -180,7 +180,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -320, 0 ) ]
+"values": [ Vector2( -160, 0 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -372,7 +372,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 320, 0 ) ]
+"values": [ Vector2( 160, 0 ) ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -460,7 +460,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -320, 0 ) ]
+"values": [ Vector2( -160, 0 ) ]
 }
 
 [sub_resource type="AtlasTexture" id=8]
@@ -490,6 +490,7 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 2.98023e-08, 0 )
 texture = ExtResource( 1 )
+flip_h = true
 region_enabled = true
 region_rect = Rect2( 138, 4, 39, 41 )
 
@@ -503,7 +504,7 @@ anims/run_e = SubResource( 6 )
 anims/run_w = SubResource( 7 )
 
 [node name="MuzzlePos" type="Position2D" parent="."]
-position = Vector2( 33.4324, -11.4433 )
+position = Vector2( -31.5783, -11.1784 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -514,15 +515,17 @@ position = Vector2( -2.97842, 2.73513 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 10 )
 animation = "fire"
+frame = 1
 playing = true
+flip_h = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[node name="TimerShoot" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 320, 0 )
-collision_mask = 4
-[connection signal="timeout" from="TimerShoot" to="." method="_on_TimerShoot_timeout"]
+cast_to = Vector2( -160, 0 )
+collision_mask = 12
+[connection signal="timeout" from="Timer" to="." method="_on_TimerShoot_timeout"]
