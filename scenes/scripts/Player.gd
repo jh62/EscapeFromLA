@@ -13,7 +13,7 @@ enum STATES {
 }
 
 export(float) var speed := 180.0
-export var damage : float = 50
+export var damage : float = 25
 
 onready var anim_player : AnimationPlayer = $AnimationPlayer
 onready var audio = $AudioStreamPlayer
@@ -25,6 +25,7 @@ onready var current_state : State = IdleState.new(self) setget change_state
 
 var vel := Vector2()
 var dir := Vector2()
+var knockback := Vector2(25,0)
 
 func _ready() -> void:
 	shape.one_way_collision = true
@@ -72,7 +73,6 @@ func _on_Timer_timeout() -> void:
 #Inner-classes
 class State:
 	var player : Player
-
 	func _init(p):
 		player = p
 	func _process(delta : float) -> void:
@@ -88,7 +88,8 @@ class IdleState extends State:
 
 	func _process(delta):
 		if player.vel.x != 0:
-			player.anim_player.play("run_e" if player.dir.x > 0 else "run_w")
+			if Input.is_action_pressed("left") || Input.is_action_pressed("right"):
+				player.anim_player.play("run_e" if player.dir.x > 0 else "run_w")
 		else:
 			player.anim_player.play("idle_e" if player.dir.x > 0 else "idle_w")
 
@@ -123,7 +124,9 @@ class IdleState extends State:
 
 	func _physics_process(delta):
 		player.vel += Global.GRAVITY*delta
-		player.vel = player.move_and_slide((player.vel ), Vector2(0,-1))
+		if player.is_shooting():
+			player.vel+= player.knockback * -player.dir.x
+		player.vel = player.move_and_slide(player.vel, Global.UP_DIRECTION)
 
 #		if player.get_slide_count() > 0:
 #			if player.get_slide_collision(0).collider is Item:

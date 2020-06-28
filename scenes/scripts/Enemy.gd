@@ -1,8 +1,6 @@
 extends KinematicBody2D
 
-var dir = Vector2(randi()%1-1,0)
-
-var velocity : Vector2 = Vector2.ZERO
+signal _on_enemy_die()
 
 export(int) var health := 100
 export(float) var speed := 20
@@ -10,13 +8,17 @@ export(float) var speed := 20
 onready var state = STATES.IDLE
 onready var knows := 0.0
 
+var dir = Vector2(randi()%1-1,0)
+var velocity : Vector2 = Vector2.ZERO
+
 enum STATES {
 	IDLE,
 	MOVING,
 	RUNNING,
 	JUMPING,
 	SHOOTING,
-	DIYING
+	DIYING,
+	HURT
 }
 
 class_name Enemy
@@ -28,6 +30,9 @@ func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
+	if state == STATES.HURT:
+		if !$AnimationPlayer.is_playing():
+			state = STATES.MOVING
 	if state == STATES.DIYING:
 		set_physics_process(false)
 		$CollisionShape2D.disabled = true
@@ -77,15 +82,12 @@ func _physics_process(delta: float) -> void:
 
 	if get_slide_count() > 0:
 		var collider = get_slide_collision(0).collider
-#		print(collider.name)
-		# Es medio hackoso y se rompe facil, pero no puedo referenciar a Player
+		# Es medio hackoso y se rompe facil, pero no puedo referenciar a player
 		# sin que cause un cyclic dependency error
-		if collider is Player:
-			pass
 		if "Enemy" in collider.name:
 			dir *= -1
 		elif collider is Item:
-				dir *= -1
+			dir *= -1
 
 func _on_TimerThink_timeout() -> void:
 	if .85 > randf():
@@ -103,9 +105,14 @@ func on_hit(attacker,target) -> void:
 
 	health -= attacker.damage
 	if health <= 0:
+		emit_signal("_on_enemy_die")
 		state = STATES.DIYING
 		velocity = Vector2.ZERO
 		if dir.x < 0:
 			$AnimationPlayer.play("die_w")
 		else:
 			$AnimationPlayer.play("die_e")
+		return
+	else:
+		$AnimationPlayer.play("hurt_1_e" if dir.x > 0 else "hurt_1_w")
+		state = STATES.HURT

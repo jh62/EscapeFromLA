@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/maps/Level1.tscn" type="PackedScene" id=2]
@@ -8,6 +8,12 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 88, 585 )
+
+[sub_resource type="Gradient" id=2]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 
 [node name="Main" type="Node"]
 script = ExtResource( 4 )
@@ -52,28 +58,28 @@ position = Vector2( 639, 296 )
 position = Vector2( 447, 304 )
 
 [node name="SpawnPoint4" type="Position2D" parent="Map"]
-position = Vector2( 975, 128 )
+position = Vector2( 983, 128 )
 
 [node name="SpawnPoint11" type="Position2D" parent="Map"]
-position = Vector2( 767, 128 )
+position = Vector2( 767, 136 )
 
 [node name="SpawnPoint5" type="Position2D" parent="Map"]
-position = Vector2( 1447, 112 )
+position = Vector2( 1447, 128 )
 
 [node name="SpawnPoint6" type="Position2D" parent="Map"]
-position = Vector2( 1903, 56 )
+position = Vector2( 1831, 72 )
 
 [node name="SpawnPoint7" type="Position2D" parent="Map"]
-position = Vector2( 1567, 8 )
+position = Vector2( 1567, 24 )
 
 [node name="SpawnPoint8" type="Position2D" parent="Map"]
-position = Vector2( 1471, 248 )
+position = Vector2( 1471, 256 )
 
 [node name="SpawnPoint9" type="Position2D" parent="Map"]
-position = Vector2( 1311, 160 )
+position = Vector2( 1239, 304 )
 
 [node name="SpawnPoint10" type="Position2D" parent="Map"]
-position = Vector2( 1311, 160 )
+position = Vector2( 1311, 184 )
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 2371, 270 )
@@ -95,6 +101,21 @@ margin_left = 1846.0
 margin_right = 2852.0
 margin_bottom = 353.0
 texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="Flash" type="TextureRect" parent="Canvas"]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.0705882 )
+margin_right = 640.0
+margin_bottom = 353.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 3 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
