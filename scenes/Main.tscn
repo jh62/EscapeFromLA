@@ -24,7 +24,7 @@ position = Vector2( 0.999985, 0 )
 position = Vector2( 2148, 76 )
 
 [node name="Player" parent="Map" instance=ExtResource( 1 )]
-position = Vector2( 158, 92 )
+position = Vector2( 848, 280 )
 
 [node name="Camera2D" type="Camera2D" parent="Map/Player"]
 position = Vector2( 0, -3 )
@@ -45,7 +45,7 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Enemy" parent="Map" instance=ExtResource( 3 )]
-position = Vector2( 488, 317 )
+position = Vector2( 260, 329 )
 
 [node name="BigBox" parent="Map" instance=ExtResource( 7 )]
 position = Vector2( 848, 320 )
