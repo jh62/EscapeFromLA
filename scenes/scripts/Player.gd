@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 class_name Player
 
-signal _on_hit(attacker)
+signal _on_hit(attacker,attacked)
 
 enum STATES {
 	IDLE,
@@ -54,7 +54,7 @@ func is_shooting() -> bool:
 func shoot():
 	$Timer.start(.1)
 	$MuzzlePos/Sprite_Muzzle.visible = true
-#	$MuzzlePos/Sprite_Muzzle.frame = 0
+	$MuzzlePos/Sprite_Muzzle.frame = 0
 	$MuzzlePos/Sprite_Muzzle.play("fire")
 	audio.stream = Global.getSound("shoot")
 	audio.play()
@@ -64,7 +64,7 @@ func shoot():
 
 		if collider is Enemy:
 			connect("_on_hit",collider,"on_hit")
-			emit_signal("_on_hit",self)
+			emit_signal("_on_hit",self,collider)
 
 func _on_Timer_timeout() -> void:
 	$MuzzlePos/Sprite_Muzzle.visible = false

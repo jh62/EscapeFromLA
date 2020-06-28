@@ -1,12 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/maps/Level1.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/entities/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/scripts/Main.gd" type="Script" id=4]
 [ext_resource path="res://scenes/entities/Glider.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/skill-desc_0003_bg.png" type="Texture" id=6]
-[ext_resource path="res://scenes/entities/BigBox.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 88, 585 )
@@ -24,7 +22,7 @@ position = Vector2( 0.999985, 0 )
 position = Vector2( 2148, 76 )
 
 [node name="Player" parent="Map" instance=ExtResource( 1 )]
-position = Vector2( 848, 280 )
+position = Vector2( 15, -104 )
 
 [node name="Camera2D" type="Camera2D" parent="Map/Player"]
 position = Vector2( 0, -3 )
@@ -44,11 +42,38 @@ drag_margin_bottom = 0.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
-[node name="Enemy" parent="Map" instance=ExtResource( 3 )]
-position = Vector2( 260, 329 )
+[node name="SpawnPoint" type="Position2D" parent="Map"]
+position = Vector2( 287, 280 )
 
-[node name="BigBox" parent="Map" instance=ExtResource( 7 )]
-position = Vector2( 848, 320 )
+[node name="SpawnPoint2" type="Position2D" parent="Map"]
+position = Vector2( 639, 272 )
+
+[node name="SpawnPoint3" type="Position2D" parent="Map"]
+position = Vector2( 447, 272 )
+
+[node name="SpawnPoint4" type="Position2D" parent="Map"]
+position = Vector2( 975, 128 )
+
+[node name="SpawnPoint11" type="Position2D" parent="Map"]
+position = Vector2( 975, 128 )
+
+[node name="SpawnPoint5" type="Position2D" parent="Map"]
+position = Vector2( 1447, 112 )
+
+[node name="SpawnPoint6" type="Position2D" parent="Map"]
+position = Vector2( 1903, 56 )
+
+[node name="SpawnPoint7" type="Position2D" parent="Map"]
+position = Vector2( 1567, 8 )
+
+[node name="SpawnPoint8" type="Position2D" parent="Map"]
+position = Vector2( 1471, 248 )
+
+[node name="SpawnPoint9" type="Position2D" parent="Map"]
+position = Vector2( 1311, 160 )
+
+[node name="SpawnPoint10" type="Position2D" parent="Map"]
+position = Vector2( 1311, 160 )
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 2371, 270 )

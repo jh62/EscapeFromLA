@@ -89,7 +89,10 @@ func _on_TimerThink_timeout() -> void:
 	elif dir.x == 1 && $RaycastRoot/RayCastRight.is_colliding():
 		dir = Vector2(1,0)
 
-func on_hit(attacker) -> void:
+func on_hit(attacker,target) -> void:
+	if target != self:
+		return
+
 	health -= attacker.damage
 	if health <= 0:
 		state = STATES.DIYING

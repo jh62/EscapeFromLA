@@ -1,9 +1,18 @@
 extends Node
 
+onready var Enemy := preload("res://scenes/entities/Enemy.tscn")
 onready var player : Player = $Map/Player
 
 func _ready() -> void:
 	player.connect("_on_player_shoot",self,"on_player_shoot")
+
+	for c in $Map.get_children():
+		if c is Position2D:
+			if .85 > randf():
+				var e := Enemy.instance()
+				e.global_position = c.global_position
+				$Map.add_child(e)
+				c.queue_free()
 
 func _process(delta: float) -> void:
 	if $TextureRect.visible:

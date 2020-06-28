@@ -372,6 +372,7 @@ scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, -19 )
 hframes = 24
+frame = 19
 region_rect = Rect2( 8, 10, 20, 28 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
