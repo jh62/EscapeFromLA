@@ -357,7 +357,7 @@ height = 25.1503
 
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 4
-collision_mask = 2147483659
+collision_mask = 15
 script = ExtResource( 2 )
 
 [node name="ShootRay" type="RayCast2D" parent="."]
@@ -396,11 +396,13 @@ shape = SubResource( 9 )
 position = Vector2( 10, 0 )
 enabled = true
 cast_to = Vector2( 0, 10 )
+collision_mask = 5
 
 [node name="RayCastLeft" type="RayCast2D" parent="RaycastRoot"]
 position = Vector2( -10, 0 )
 enabled = true
 cast_to = Vector2( 0, 10 )
+collision_mask = 5
 
 [node name="RayCastBehind" type="RayCast2D" parent="RaycastRoot"]
 position = Vector2( 0, -28 )

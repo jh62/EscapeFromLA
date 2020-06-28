@@ -43,19 +43,19 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="SpawnPoint" type="Position2D" parent="Map"]
-position = Vector2( 287, 280 )
+position = Vector2( 287, 304 )
 
 [node name="SpawnPoint2" type="Position2D" parent="Map"]
-position = Vector2( 639, 272 )
+position = Vector2( 639, 296 )
 
 [node name="SpawnPoint3" type="Position2D" parent="Map"]
-position = Vector2( 447, 272 )
+position = Vector2( 447, 304 )
 
 [node name="SpawnPoint4" type="Position2D" parent="Map"]
 position = Vector2( 975, 128 )
 
 [node name="SpawnPoint11" type="Position2D" parent="Map"]
-position = Vector2( 975, 128 )
+position = Vector2( 767, 128 )
 
 [node name="SpawnPoint5" type="Position2D" parent="Map"]
 position = Vector2( 1447, 112 )

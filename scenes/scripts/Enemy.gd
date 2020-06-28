@@ -76,7 +76,15 @@ func _physics_process(delta: float) -> void:
 	velocity = move_and_slide(velocity)
 
 	if get_slide_count() > 0:
-		if get_slide_collision(0).collider is Item:
+		var collider = get_slide_collision(0).collider
+#		print(collider.name)
+		# Es medio hackoso y se rompe facil, pero no puedo referenciar a Player
+		# sin que cause un cyclic dependency error
+		if collider is Player:
+			pass
+		if "Enemy" in collider.name:
+			dir *= -1
+		elif collider is Item:
 				dir *= -1
 
 func _on_TimerThink_timeout() -> void:
