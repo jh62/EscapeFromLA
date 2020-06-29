@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/knows-07.wav-939dbfbbfb84b19f042f0d99b7d20a71.sample"
+
+[deps]
+
+source_file="res://assets/snd/knows-07.wav"
+dest_files=[ "res://.import/knows-07.wav-939dbfbbfb84b19f042f0d99b7d20a71.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -17,6 +17,7 @@ enum STATES {
 	RUNNING,
 	JUMPING,
 	SHOOTING,
+	ALERT,
 	DIYING,
 	HURT
 }
@@ -26,8 +27,12 @@ class_name Enemy
 func _ready() -> void:
 	#randomize es para que cambie la seed de randi, sino siempre usa la misma
 	randomize()
+	$TimerThink.start(3)
+	$BloodFX.emitting = false
 	state = STATES.MOVING
-	pass
+	add_to_group("enemy")
+
+var new_dir = Vector2.ZERO
 
 func _process(delta: float) -> void:
 	if state == STATES.HURT:
@@ -47,6 +52,8 @@ func _process(delta: float) -> void:
 	if state == STATES.MOVING:
 		if $RaycastRoot/RayCastBehind.is_colliding():
 			dir = global_position.direction_to($RaycastRoot/RayCastBehind.get_collider().global_position)
+			$AudioStreamPlayer.stream = Global.getSound("knows")
+			$AudioStreamPlayer.play()
 		if $ShootRay.is_colliding():
 			state = STATES.SHOOTING
 			knows = 1.0
@@ -55,6 +62,7 @@ func _process(delta: float) -> void:
 			dir.x = 1
 		elif !$RaycastRoot/RayCastRight.is_colliding():
 			dir.x = -1
+
 		if dir.x < 0:
 			$AnimationPlayer.play("run_w")
 		else:
@@ -82,14 +90,15 @@ func _physics_process(delta: float) -> void:
 
 	if get_slide_count() > 0:
 		var collider = get_slide_collision(0).collider
-		# Es medio hackoso y se rompe facil, pero no puedo referenciar a player
-		# sin que cause un cyclic dependency error
-		if "Enemy" in collider.name:
+
+		if collider.is_in_group("enemy"):
 			dir *= -1
-		elif collider is Item:
+		elif collider.is_in_group("item"):
 			dir *= -1
 
 func _on_TimerThink_timeout() -> void:
+	if knows > .9:
+		return
 	if .85 > randf():
 		dir = Vector2(-dir.x,0)
 		$TimerThink.wait_time = randi()%3+8
@@ -104,8 +113,14 @@ func on_hit(attacker,target) -> void:
 		return
 
 	health -= attacker.damage
+	$BloodFX.one_shot = true
+	$BloodFX.visible = true
+	$BloodFX.emitting = true
 	if health <= 0:
 		emit_signal("_on_enemy_die")
+		$AudioStreamPlayer.stream = Global.getSound("die")
+		$AudioStreamPlayer.pitch_scale = rand_range(.92,1)
+		$AudioStreamPlayer.play()
 		state = STATES.DIYING
 		velocity = Vector2.ZERO
 		if dir.x < 0:
@@ -114,5 +129,8 @@ func on_hit(attacker,target) -> void:
 			$AnimationPlayer.play("die_e")
 		return
 	else:
+		$AudioStreamPlayer.stream = Global.getSound("hurt")
+		$AudioStreamPlayer.pitch_scale = 1.0
+		$AudioStreamPlayer.play()
 		$AnimationPlayer.play("hurt_1_e" if dir.x > 0 else "hurt_1_w")
 		state = STATES.HURT

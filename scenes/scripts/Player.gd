@@ -3,6 +3,7 @@ extends KinematicBody2D
 class_name Player
 
 signal _on_hit(attacker,attacked)
+signal _on_shoot(this, pos,dir)
 
 enum STATES {
 	IDLE,
@@ -53,22 +54,23 @@ func is_shooting() -> bool:
 	return !$Timer.is_stopped()
 
 func shoot():
-	$Timer.start(.1)
+	emit_signal("_on_shoot",self, $BulletPos.global_position, dir)
+	$Timer.start(.05)
 	$MuzzlePos/Sprite_Muzzle.visible = true
-	$MuzzlePos/Sprite_Muzzle.frame = 0
-	$MuzzlePos/Sprite_Muzzle.play("fire")
-	audio.stream = Global.getSound("shoot")
+#	audio.stream = Global.getSound("shoot")
+	audio.pitch_scale = rand_range(.97,1)
 	audio.play()
 
-	if $RayCast2D.is_colliding():
-		var collider = $RayCast2D.get_collider()
-
-		if collider is Enemy:
-			connect("_on_hit",collider,"on_hit")
-			emit_signal("_on_hit",self,collider)
+#	if $RayCast2D.is_colliding():
+#		var collider = $RayCast2D.get_collider()
+#
+#		if collider.is_in_group("enemy"):
+#			connect("_on_hit",collider,"on_hit")
+#			emit_signal("_on_hit",self,collider)
 
 func _on_Timer_timeout() -> void:
 	$MuzzlePos/Sprite_Muzzle.visible = false
+	pass
 
 #Inner-classes
 class State:

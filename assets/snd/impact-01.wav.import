@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/impact-01.wav-97586d91be666c5cc3543f838f3cb7f8.sample"
+
+[deps]
+
+source_file="res://assets/snd/impact-01.wav"
+dest_files=[ "res://.import/impact-01.wav-97586d91be666c5cc3543f838f3cb7f8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,6 +1,7 @@
 extends Node
 
 onready var Enemy := preload("res://scenes/entities/Enemy.tscn")
+onready var Bullet := preload("res://scenes/entities/Bullet.tscn")
 onready var player = $Map/Player
 
 func _ready() -> void:
@@ -35,3 +36,15 @@ func on_enemy_die() -> void:
 	$Tween.start()
 	yield($Tween,"tween_completed")
 	$Canvas/Flash.visible = false
+
+func on_bullet_hit(from, target) -> void:
+	if target.is_in_group("enemy"):
+		target.call("on_hit",from, target)
+
+func _on_body_shoot(attacker, pos,dir) -> void:
+	var b : KinematicBody2D = Bullet.instance()
+	b.global_position = pos
+	b.spawner = attacker
+	b.dir = dir
+	b.connect("_on_bullet_hit",self,"on_bullet_hit")
+	$Map.add_child(b)

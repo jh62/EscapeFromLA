@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/jump_land.wav-5a48fc7444cd263e702a26bae6e21471.sample"
+
+[deps]
+
+source_file="res://assets/snd/jump_land.wav"
+dest_files=[ "res://.import/jump_land.wav-5a48fc7444cd263e702a26bae6e21471.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

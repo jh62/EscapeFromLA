@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/escapela.ogg-9b96f632265f0d2571f23e116bd6f6b9.oggstr"
+
+[deps]
+
+source_file="res://assets/music/escapela.ogg"
+dest_files=[ "res://.import/escapela.ogg-9b96f632265f0d2571f23e116bd6f6b9.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
