@@ -54,6 +54,8 @@ func _process(delta: float) -> void:
 			dir = global_position.direction_to($RaycastRoot/RayCastBehind.get_collider().global_position)
 			$AudioStreamPlayer.stream = Global.getSound("knows")
 			$AudioStreamPlayer.play()
+			$SpriteKnows.visible = true
+			$TimerKnowsFade.start(.5)
 		if $ShootRay.is_colliding():
 			state = STATES.SHOOTING
 			knows = 1.0
@@ -134,3 +136,7 @@ func on_hit(attacker,target) -> void:
 		$AudioStreamPlayer.play()
 		$AnimationPlayer.play("hurt_1_e" if dir.x > 0 else "hurt_1_w")
 		state = STATES.HURT
+
+
+func _on_TimerKnowsFade_timeout() -> void:
+	$SpriteKnows.visible = false

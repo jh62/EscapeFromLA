@@ -30,7 +30,7 @@ var knockback := Vector2(25,0)
 
 func _ready() -> void:
 	shape.one_way_collision = true
-
+	$MuzzlePos/Sprite_Muzzle.visible = false
 	pass
 
 func _process(delta: float) -> void:

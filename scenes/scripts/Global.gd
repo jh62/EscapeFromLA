@@ -7,6 +7,7 @@ const GRAVITY = Vector2(0,980)
 const SOUNDS = {
 	"shoot" : [
 		preload("res://assets/snd/shoot-01.wav"),
+		preload("res://assets/snd/shoot-02.wav")
 	],
 	"impact" : [
 		preload("res://assets/snd/impact-01.wav"),
@@ -14,19 +15,23 @@ const SOUNDS = {
 	],
 	"hurt" : [
 		preload("res://assets/snd/hurt-01.wav"),
-		preload("res://assets/snd/hurt-02.wav")
+		preload("res://assets/snd/hurt-02.wav"),
+		preload("res://assets/snd/hurt-03.wav"),
+		preload("res://assets/snd/hurt-04.wav"),
+		preload("res://assets/snd/hurt-05.wav"),
+		preload("res://assets/snd/hurt-06.wav"),
+		preload("res://assets/snd/hurt-07.wav"),
+		preload("res://assets/snd/hurt-08.wav")
 	],
 	"die" : [
-		preload("res://assets/snd/die-01.wav")
+		preload("res://assets/snd/die-01.wav"),
+		preload("res://assets/snd/die-02.wav"),
+		preload("res://assets/snd/die-03.wav")
 	],
 	"knows" : [
 		preload("res://assets/snd/knows-01.wav"),
 		preload("res://assets/snd/knows-02.wav"),
-		preload("res://assets/snd/knows-03.wav"),
-		preload("res://assets/snd/knows-04.wav"),
-		preload("res://assets/snd/knows-05.wav"),
-		preload("res://assets/snd/knows-06.wav"),
-		preload("res://assets/snd/knows-07.wav")
+		preload("res://assets/snd/knows-03.wav")
 	]
 }
 

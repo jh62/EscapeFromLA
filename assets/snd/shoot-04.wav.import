@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shoot-04.wav-8e9a3c4e8c7707ede6cb96fc5f65f1e4.sample"
+
+[deps]
+
+source_file="res://assets/snd/shoot-04.wav"
+dest_files=[ "res://.import/shoot-04.wav-8e9a3c4e8c7707ede6cb96fc5f65f1e4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

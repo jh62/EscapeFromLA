@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/player_blue.png" type="Texture" id=1]
 [ext_resource path="res://scenes/scripts/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/m_7.png" type="Texture" id=3]
-[ext_resource path="res://assets/snd/shoot-01.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/snd/shoot-02.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8.99093, 20.5 )
@@ -544,6 +544,7 @@ __meta__ = {
 }
 
 [node name="Sprite_Muzzle" type="Sprite" parent="MuzzlePos"]
+visible = false
 position = Vector2( -2.97842, 2.73513 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
