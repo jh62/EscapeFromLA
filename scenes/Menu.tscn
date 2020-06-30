@@ -7,23 +7,23 @@
 [ext_resource path="res://scenes/scripts/Menu.gd" type="Script" id=5]
 [ext_resource path="res://assets/skill-desc_0003_bg.png" type="Texture" id=6]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=1]
 draw_center = false
 corner_detail = 1
 
 [sub_resource type="DynamicFontData" id=2]
 font_path = "res://assets/BULKYPIX.TTF"
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 41
 use_mipmaps = true
 font_data = SubResource( 2 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 use_mipmaps = true
 font_data = SubResource( 2 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=5]
 size = 14
 use_mipmaps = true
 font_data = SubResource( 2 )
@@ -104,7 +104,7 @@ margin_bottom = 107.0
 self_modulate = Color( 0.4, 0.4, 0.4, 1 )
 margin_right = 203.0
 margin_bottom = 33.0
-custom_styles/focus = SubResource( 3 )
+custom_styles/focus = SubResource( 1 )
 custom_colors/font_color_hover = Color( 0.203922, 0.192157, 0.192157, 1 )
 custom_colors/font_color_pressed = Color( 0.984314, 0.901961, 0.00392157, 1 )
 text = "NEW GAME"
@@ -115,7 +115,7 @@ self_modulate = Color( 0.4, 0.4, 0.4, 1 )
 margin_top = 37.0
 margin_right = 203.0
 margin_bottom = 70.0
-custom_styles/focus = SubResource( 3 )
+custom_styles/focus = SubResource( 1 )
 custom_colors/font_color_hover = Color( 0.203922, 0.192157, 0.192157, 1 )
 custom_colors/font_color_pressed = Color( 0.984314, 0.901961, 0.00392157, 1 )
 text = "CREDITS"
@@ -126,7 +126,7 @@ self_modulate = Color( 0.4, 0.4, 0.4, 1 )
 margin_top = 74.0
 margin_right = 203.0
 margin_bottom = 107.0
-custom_styles/focus = SubResource( 3 )
+custom_styles/focus = SubResource( 1 )
 custom_colors/font_color_hover = Color( 0.203922, 0.192157, 0.192157, 1 )
 custom_colors/font_color_pressed = Color( 0.984314, 0.901961, 0.00392157, 1 )
 text = "QUIT"
@@ -143,7 +143,7 @@ margin_right = 2.0
 margin_bottom = 80.0
 size_flags_horizontal = 4
 size_flags_vertical = 6
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "ESCAPE L.A."
 align = 1
@@ -198,7 +198,7 @@ margin_bottom = 74.0
 [node name="Label" type="Label" parent="Control1/CenterContainer/VBoxContainer/MarginContainer/CenterContainer"]
 margin_right = 171.0
 margin_bottom = 25.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Programming:"
 align = 1
 
@@ -206,7 +206,7 @@ align = 1
 margin_top = 29.0
 margin_right = 171.0
 margin_bottom = 74.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.45098, 0.992157, 0, 1 )
 text = "Paul
 Azagaya"
@@ -224,7 +224,7 @@ margin_bottom = 74.0
 [node name="Label" type="Label" parent="Control1/CenterContainer/VBoxContainer/MarginContainer2/CenterContainer"]
 margin_right = 171.0
 margin_bottom = 25.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Music:"
 align = 1
 
@@ -232,7 +232,7 @@ align = 1
 margin_top = 29.0
 margin_right = 171.0
 margin_bottom = 74.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.45098, 0.992157, 0, 1 )
 text = "oqlqo_bk
 Paul"
@@ -250,7 +250,7 @@ margin_bottom = 54.0
 [node name="Label" type="Label" parent="Control1/CenterContainer/VBoxContainer/MarginContainer3/CenterContainer"]
 margin_right = 171.0
 margin_bottom = 25.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Sound design:"
 align = 1
 
@@ -258,7 +258,7 @@ align = 1
 margin_top = 29.0
 margin_right = 171.0
 margin_bottom = 54.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.45098, 0.992157, 0, 1 )
 text = "Paul"
 align = 1
@@ -309,7 +309,7 @@ margin_bottom = 174.0
 [node name="Label" type="Label" parent="Control2/CenterContainer/VBoxContainer/MarginContainer/CenterContainer"]
 margin_right = 581.0
 margin_bottom = 25.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Software:"
 align = 1
 
@@ -317,7 +317,7 @@ align = 1
 margin_top = 29.0
 margin_right = 581.0
 margin_bottom = 174.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.45098, 0.992157, 0, 1 )
 text = "
 Godot
@@ -340,7 +340,7 @@ margin_bottom = 106.0
 [node name="Label" type="Label" parent="Control2/CenterContainer/VBoxContainer/MarginContainer2/CenterContainer"]
 margin_right = 581.0
 margin_bottom = 25.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Assets:"
 align = 1
 
@@ -348,7 +348,7 @@ align = 1
 margin_top = 29.0
 margin_right = 581.0
 margin_bottom = 106.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.45098, 0.992157, 0, 1 )
 text = "https://bakudas.itch.io/generic-run-n-gun
 https://anokolisa.itch.io/legacy-action-pack-park

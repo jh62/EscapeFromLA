@@ -105,7 +105,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 7.33999, -6.13289 ) ]
+"values": [ Vector2( 7.33999, -7.09075 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -409,7 +409,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 7.51677, -5.67398 ) ]
+"values": [ Vector2( 7.31834, -6.96374 ) ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -509,7 +509,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -7.33247, -5.85075 ) ]
+"values": [ Vector2( -8.22538, -6.94209 ) ]
 }
 
 [node name="Player" type="KinematicBody2D"]
@@ -527,15 +527,6 @@ flip_h = true
 region_enabled = true
 region_rect = Rect2( 138, 4, 39, 41 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "idle_e"
-anims/idle_e = SubResource( 2 )
-anims/idle_w = SubResource( 3 )
-anims/jump_e = SubResource( 4 )
-anims/jump_w = SubResource( 5 )
-anims/run_e = SubResource( 6 )
-anims/run_w = SubResource( 7 )
-
 [node name="MuzzlePos" type="Position2D" parent="."]
 position = Vector2( -41.6337, -8.09163 )
 scale = Vector2( 0.1, 0.1 )
@@ -550,8 +541,17 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 flip_h = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle_e"
+anims/idle_e = SubResource( 2 )
+anims/idle_w = SubResource( 3 )
+anims/jump_e = SubResource( 4 )
+anims/jump_w = SubResource( 5 )
+anims/run_e = SubResource( 6 )
+anims/run_w = SubResource( 7 )
+
 [node name="BulletPos" type="Position2D" parent="."]
-position = Vector2( -7.33247, -5.85075 )
+position = Vector2( -8.22538, -6.94209 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

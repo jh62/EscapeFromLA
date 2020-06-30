@@ -78,7 +78,7 @@ func showCredits():
 	showMenu()
 
 func changeScene() -> void:
-	get_tree().change_scene("res://scenes/Main.tscn")
+	get_tree().change_scene("res://scenes/StageB.tscn")
 
 func orderMenu():
 	for c in option_container.get_children():
