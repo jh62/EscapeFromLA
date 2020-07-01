@@ -22,6 +22,8 @@ animations = [ {
 
 [sub_resource type="Animation" id=4]
 resource_name = "idle"
+length = 0.3
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("SpritePlayer:region_rect")
 tracks/0/interp = 1
@@ -142,9 +144,47 @@ tracks/9/keys = {
 "update": 0,
 "values": [ Vector2( 20, -26 ) ]
 }
+tracks/10/type = "value"
+tracks/10/path = NodePath("SpritePlayer:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 8, -16 ), Vector2( 8, -17 ), Vector2( 10, -17 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("SpritePlayer:rotation_degrees")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("SpriteWaterboard:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( -1, 0 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "move_down"
+length = 0.3
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("SpritePlayer:region_rect")
 tracks/0/interp = 1
@@ -253,9 +293,47 @@ tracks/8/keys = {
 "update": 0,
 "values": [ Vector2( 20, -10 ) ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("SpritePlayer:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 7, -17 ), Vector2( 7, -18 ), Vector2( 8, -16 ), Vector2( 7, -18 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("SpriteWaterboard:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 1 ), Vector2( 0, -1 ), Vector2( 0, 2 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("SpriteSplash:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 3 ) ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "move_up"
+length = 0.3
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("SpritePlayer:region_rect")
 tracks/0/interp = 1
@@ -364,6 +442,42 @@ tracks/8/keys = {
 "update": 0,
 "values": [ Vector2( 20, -39 ) ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("SpriteSplash:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 0 ), Vector2( 2, 0 ), Vector2( 2, -2 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("SpriteWaterboard:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 0, 1 ), Vector2( 0, 2 ), Vector2( -1, 2 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("SpritePlayer:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 7, -17 ), Vector2( 6, -17 ), Vector2( 7, -19 ) ]
+}
 
 [sub_resource type="CapsuleShape2D" id=7]
 
@@ -372,23 +486,26 @@ script = ExtResource( 1 )
 bounce = 20.0
 
 [node name="SpriteSplash" type="AnimatedSprite" parent="."]
+rotation = -0.785398
 scale = Vector2( 1, 1.04237 )
 frames = SubResource( 3 )
 playing = true
-offset = Vector2( -16, 0 )
+offset = Vector2( -16, -4 )
 
 [node name="SpriteWaterboard" type="Sprite" parent="."]
+position = Vector2( 0, 1 )
 texture = ExtResource( 2 )
+offset = Vector2( 0, -8 )
 flip_h = true
 region_enabled = true
-region_rect = Rect2( 0, 8, 34, 8 )
+region_rect = Rect2( 36, 0, 24, 24 )
 
 [node name="SpritePlayer" type="Sprite" parent="."]
-position = Vector2( 8, -16 )
+position = Vector2( 7, -17 )
 texture = ExtResource( 3 )
-offset = Vector2( -2, -3 )
+offset = Vector2( 0, -6 )
 region_enabled = true
-region_rect = Rect2( 579, 5, 31, 41 )
+region_rect = Rect2( 1155, 4, 28, 42 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/idle = SubResource( 4 )
@@ -396,11 +513,13 @@ anims/move_down = SubResource( 5 )
 anims/move_up = SubResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, -16 )
 shape = SubResource( 7 )
 
 [node name="BulletPos" type="Position2D" parent="."]
-position = Vector2( 20, -26 )
+visible = false
+position = Vector2( 20, -39 )
 
 [node name="TimerShoot" type="Timer" parent="."]
 wait_time = 0.15

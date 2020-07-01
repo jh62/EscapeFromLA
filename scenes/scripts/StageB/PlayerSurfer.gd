@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
-signal _on_shoot(bullet_pos, bullet_dir)
+signal _on_shoot(bullet_pos)
+signal _on_grenade_throw(throw_pos)
 
 enum State {
 	IDLE
@@ -43,6 +44,7 @@ func _physics_process(delta: float) -> void:
 			vel.y = collision.normal.y * bounce
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.is_action_pressed("shoot"):
-			emit_signal("_on_shoot", $BulletPos.global_position, event.position)
+	if event.is_action_pressed("shoot"):
+		emit_signal("_on_shoot", $BulletPos.global_position)
+	elif event.is_action_pressed("jump") || event.is_action_pressed("secondary"):
+		emit_signal("_on_grenade_throw", global_position)

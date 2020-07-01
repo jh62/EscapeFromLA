@@ -87,7 +87,7 @@ texture = ExtResource( 2 )
 scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 10 )
 animation = "splash"
-frame = 2
+frame = 1
 playing = true
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]

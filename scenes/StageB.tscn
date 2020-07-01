@@ -63,4 +63,5 @@ shape = SubResource( 1 )
 
 [node name="Player" parent="Map" instance=ExtResource( 7 )]
 position = Vector2( 67, 185 )
+[connection signal="_on_grenade_throw" from="Map/Player" to="." method="_on_Player__on_grenade_throw"]
 [connection signal="_on_shoot" from="Map/Player" to="." method="_on_Player__on_shoot"]
