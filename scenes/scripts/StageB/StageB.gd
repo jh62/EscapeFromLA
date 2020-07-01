@@ -5,6 +5,7 @@ onready var Crosshair = preload("res://assets/stageB/crosshair.png")
 onready var Bullet = preload("res://scenes/entities/StageB/Bullet2.tscn")
 onready var Grenade = preload("res://scenes/entities/Grenade.tscn")
 onready var Enemy = preload("res://scenes/entities/StageB/EnemySurfer.tscn")
+onready var m_waveMusic = preload("res://assets/music/thewave.ogg")
 
 export(int) var MAX_ENEMY_COUNT = 12
 
@@ -15,10 +16,14 @@ func _ready() -> void:
 	$Map/Top.add_to_group("bounds")
 	$Map/Bottom.add_to_group("bounds")
 	Input.set_custom_mouse_cursor(Crosshair, 0, Vector2(16,18))
-
+	$AudioStreamPlayer2.play()
+	$AudioStreamPlayer2.stream_paused = true
 func _process(delta: float) -> void:
-	if player.state == player.State.DEAD:
-		pass
+	if $AudioStreamPlayer.playing:
+		if $AudioStreamPlayer.get_playback_position() >= 5.9:
+			$AudioStreamPlayer2.stream_paused = false
+			$Timer.start()
+	print($AudioStreamPlayer.get_playback_position())
 
 func _on_Player__on_shoot(pos : Vector2) -> void:
 	var bullet = spawnBullet(pos, get_global_mouse_position())

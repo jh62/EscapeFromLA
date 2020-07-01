@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/thewave_intro.ogg-15414837f3595cbb5330f7769f53befe.oggstr"
+
+[deps]
+
+source_file="res://assets/music/thewave_intro.ogg"
+dest_files=[ "res://.import/thewave_intro.ogg-15414837f3595cbb5330f7769f53befe.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
