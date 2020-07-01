@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/snaake.wav-0be306bca0883e1073d47ad041f1cfdc.sample"
+
+[deps]
+
+source_file="res://assets/snd/snaake.wav"
+dest_files=[ "res://.import/snaake.wav-0be306bca0883e1073d47ad041f1cfdc.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

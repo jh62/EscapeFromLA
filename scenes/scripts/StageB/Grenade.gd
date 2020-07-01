@@ -13,6 +13,7 @@ var arc := 100.0
 var exploding = false
 
 func _ready() -> void:
+	add_to_group("grenades")
 	p.curve = Curve2D.new()
 
 	var middle_point : Vector2 = global_position.linear_interpolate(target_pos, .5) + Vector2(0,-arc)
