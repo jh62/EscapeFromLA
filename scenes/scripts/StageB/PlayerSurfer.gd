@@ -99,7 +99,6 @@ func on_hit(attacker) -> void:
 
 	health -= 10
 	if health <= 0:
-		emit_signal("_on_player_death")
 		state = State.DYING
 		$AnimationPlayer.play("die")
 		$AudioStreamPlayer.stream = snd_scream
@@ -108,3 +107,4 @@ func on_hit(attacker) -> void:
 		if $AudioStreamPlayer.playing:
 			yield($AudioStreamPlayer,"finished")
 		state = State.DEAD
+		emit_signal("_on_player_death")

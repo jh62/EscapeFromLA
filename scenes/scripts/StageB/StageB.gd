@@ -66,6 +66,8 @@ func on_enemy_die():
 
 
 func _on_Player__on_player_death() -> void:
+	$Control/Tween.interpolate_property($Control/Label,"visible_characters",0,11,2,Tween.TRANS_LINEAR)
+	$Control/Tween.start()
 	$AudioStreamPlayer.stream = load("res://assets/snd/snaake.wav")
 	$AudioStreamPlayer.play()
 	yield($AudioStreamPlayer,"finished")
