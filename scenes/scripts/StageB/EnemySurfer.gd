@@ -105,6 +105,8 @@ func _on_TimerThink_timeout() -> void:
 		dir.x = 0
 
 func _on_TimerShoot_timeout() -> void:
+	if target.health <= 0:
+		return
 	if state == State.MOVING:
 		emit_signal("_on_shoot", $BulletOffset.global_position)
 	if global_position.y > 300 || global_position.y < 30:

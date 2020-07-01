@@ -1,15 +1,15 @@
 extends Node2D
 
-const MAX_ENEMY_COUNT = 20
 
 onready var Crosshair = preload("res://assets/stageB/crosshair.png")
 onready var Bullet = preload("res://scenes/entities/StageB/Bullet2.tscn")
 onready var Grenade = preload("res://scenes/entities/Grenade.tscn")
 onready var Enemy = preload("res://scenes/entities/StageB/EnemySurfer.tscn")
 
-export(int) var enemy_count = 0
+export(int) var MAX_ENEMY_COUNT = 12
 
 onready var player = find_node("Player")
+var enemy_count = 0
 
 func _ready() -> void:
 	$Map/Top.add_to_group("bounds")
