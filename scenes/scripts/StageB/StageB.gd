@@ -23,7 +23,6 @@ func _process(delta: float) -> void:
 		if $AudioStreamPlayer.get_playback_position() >= 5.9:
 			$AudioStreamPlayer2.stream_paused = false
 			$Timer.start()
-	print($AudioStreamPlayer.get_playback_position())
 
 func _on_Player__on_shoot(pos : Vector2) -> void:
 	var bullet = spawnBullet(pos, get_global_mouse_position())
