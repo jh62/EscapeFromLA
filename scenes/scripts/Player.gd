@@ -2,7 +2,6 @@ extends KinematicBody2D
 
 class_name Player
 
-signal _on_hit(attacker,attacked)
 signal _on_shoot(this, pos,dir)
 
 enum STATES {
@@ -30,6 +29,7 @@ var dir := Vector2()
 var knockback := Vector2(25,0)
 
 func _ready() -> void:
+	add_to_group("player")
 	shape.one_way_collision = true
 	$MuzzlePos/Sprite_Muzzle.visible = false
 	pass
@@ -58,16 +58,30 @@ func shoot():
 	emit_signal("_on_shoot",self, $BulletPos.global_position, dir)
 	$Timer.start(.05)
 	$MuzzlePos/Sprite_Muzzle.visible = true
-#	audio.stream = Global.getSound("shoot")
+	audio.stream = Global.getSound("shoot")
 	audio.pitch_scale = rand_range(.97,1)
 	audio.play()
 
-#	if $RayCast2D.is_colliding():
-#		var collider = $RayCast2D.get_collider()
-#
-#		if collider.is_in_group("enemy"):
-#			connect("_on_hit",collider,"on_hit")
-#			emit_signal("_on_hit",self,collider)
+func on_hit(attacker,target) -> void:
+	if target != self:
+		return
+
+	health -= attacker.damage
+	$BloodFX.one_shot = true
+	$BloodFX.visible = true
+	$BloodFX.emitting = true
+	if health <= 0:
+#		current_state = STATES.DIYING
+		vel = Vector2.ZERO
+		if dir.x < 0:
+			$AnimationPlayer.play("die_w")
+		else:
+			$AnimationPlayer.play("die_e")
+		return
+	else:
+		$AudioStreamPlayer.stream = Global.getSound("hurt")
+		$AudioStreamPlayer.pitch_scale = 1.0
+		$AudioStreamPlayer.play()
 
 func _on_Timer_timeout() -> void:
 	$MuzzlePos/Sprite_Muzzle.visible = false
@@ -102,8 +116,7 @@ class IdleState extends State:
 		if Input.is_action_just_pressed("jump") && player.is_on_floor():
 			if Input.is_action_pressed("down") && player.global_position.y < Global.DROPDOWN_MIN_Y:
 				player.shape.disabled = true
-				player.timer_shoot.start(.35)
-				yield(player.timer_shoot,"timeout")
+				yield(player.get_tree().create_timer(.1),"timeout")
 				player.shape.disabled = false
 			else :
 				var state := JumpState.new(player, Input.get_action_strength("jump"))

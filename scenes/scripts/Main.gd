@@ -38,8 +38,8 @@ func on_enemy_die() -> void:
 	yield($Tween,"tween_completed")
 	$Canvas/Flash.visible = false
 
-func on_bullet_hit(from, target) -> void:
-	if target.is_in_group("enemy"):
+func on_bullet_hit(from : Node2D, target : Node2D) -> void:
+	if from.is_in_group("player") && target.is_in_group("enemy") || from.is_in_group("enemy") && target.is_in_group("player"):
 		target.call("on_hit",from, target)
 
 func _on_body_shoot(attacker, pos,dir) -> void:

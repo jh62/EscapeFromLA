@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-signal _on_bullet_hit(body)
+signal _on_bullet_hit(shooter,shooted)
 
 enum State {
 	FLYING,
@@ -27,8 +27,7 @@ func _physics_process(delta: float) -> void:
 			vel = move_and_slide(vel)
 			if get_slide_count() > 0:
 				var collider = get_slide_collision(0).collider
-				if collider.is_in_group("enemy"):
-					emit_signal("_on_bullet_hit",spawner, collider)
+				emit_signal("_on_bullet_hit",spawner, collider)
 				explode()
 		State.EXPLODING:
 			yield($AnimSpriteExplode,"animation_finished")

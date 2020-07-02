@@ -1,9 +1,11 @@
 extends KinematicBody2D
 
 signal _on_enemy_die()
+signal _on_shoot(this, pos,dir)
 
 export(int) var health := 100
 export(float) var speed := 20
+export(float) var damage := 5
 
 onready var state = STATES.IDLE
 onready var knows := 0.0
@@ -25,7 +27,7 @@ enum STATES {
 class_name Enemy
 
 func _ready() -> void:
-	#randomize es para que cambie la seed de randi, sino siempre usa la misma
+	connect("_on_shoot",get_tree().current_scene,"_on_body_shoot")
 	randomize()
 	$TimerThink.start(3)
 	$BloodFX.emitting = false
@@ -38,6 +40,7 @@ func _process(delta: float) -> void:
 	if state == STATES.HURT:
 		if !$AnimationPlayer.is_playing():
 			state = STATES.MOVING
+		return
 	if state == STATES.DIYING:
 		set_physics_process(false)
 		$CollisionShape2D.disabled = true
@@ -50,16 +53,14 @@ func _process(delta: float) -> void:
 			return
 		return
 	if state == STATES.MOVING:
-		if $RaycastRoot/RayCastBehind.is_colliding():
-			dir = global_position.direction_to($RaycastRoot/RayCastBehind.get_collider().global_position)
+		if $RaycastRoot/RayCastBehind.is_colliding() && $TimerKnowsFade.is_stopped():
 			$AudioStreamPlayer.stream = Global.getSound("knows")
 			$AudioStreamPlayer.play()
-			$SpriteKnows.visible = true
 			$TimerKnowsFade.start(.5)
+			$SpriteKnows.visible = true
 		if $ShootRay.is_colliding():
 			state = STATES.SHOOTING
 			knows = 1.0
-			return
 		if !$RaycastRoot/RayCastLeft.is_colliding():
 			dir.x = 1
 		elif !$RaycastRoot/RayCastRight.is_colliding():
@@ -77,13 +78,15 @@ func _process(delta: float) -> void:
 		else:
 			knows = 0.0
 	if state == STATES.SHOOTING:
-		velocity.x = 0
-		if dir.x < 0:
-			$AnimationPlayer.current_animation = ("shoot_w")
-		else:
-			$AnimationPlayer.current_animation = ("shoot_e")
-		if !$ShootRay.is_colliding():
+		if !$TimerShoot.is_stopped():
+			return
+		elif !$ShootRay.is_colliding():
 			state = STATES.MOVING
+			return
+
+		velocity = Vector2.ZERO
+		$AnimationPlayer.play("idle_w" if dir.x < 0 else "idle_e")
+		$TimerShoot.start()
 
 func _physics_process(delta: float) -> void:
 	# misma aclaracion que en player
@@ -99,6 +102,8 @@ func _physics_process(delta: float) -> void:
 			dir *= -1
 
 func _on_TimerThink_timeout() -> void:
+	if !$TimerKnowsFade.is_stopped() || !$TimerShoot.is_stopped():
+		return
 	if knows > .9:
 		return
 	if .85 > randf():
@@ -137,6 +142,19 @@ func on_hit(attacker,target) -> void:
 		$AnimationPlayer.play("hurt_1_e" if dir.x > 0 else "hurt_1_w")
 		state = STATES.HURT
 
-
 func _on_TimerKnowsFade_timeout() -> void:
 	$SpriteKnows.visible = false
+	dir *= -1
+
+func _on_TimerShoot_timeout() -> void:
+	if state != STATES.SHOOTING:
+		print("cant shoot")
+		return
+#	elif !$ShootRay.is_colliding():
+#		state = STATES.MOVING
+#		return
+
+	emit_signal("_on_shoot",self, $BulletPos.global_position, dir)
+	$AnimationPlayer.current_animation = "shoot_w" if dir.x < 0 else "shoot_e"
+	$AudioStreamPlayer.stream = Global.getSound("shoot")
+	$AudioStreamPlayer.play()
