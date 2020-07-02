@@ -8,7 +8,7 @@ enum State {
 }
 
 export(float) var speed = 100
-export(Vector2) var initial_speed = Vector2(1200,0)
+export(Vector2) var initial_speed = Vector2(1200,1200)
 
 onready var state = State.FLYING
 onready var vel : Vector2 = initial_speed
@@ -17,6 +17,7 @@ var dir : Vector2
 var spawner : Node
 
 func _ready() -> void:
+	print(dir)
 	vel = initial_speed * dir
 
 func _physics_process(delta: float) -> void:

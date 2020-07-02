@@ -104,11 +104,26 @@ class IdleState extends State:
 		pass
 
 	func _process(delta):
-		if player.vel.x != 0:
+#		if player.vel.x != 0:
+#			if Input.is_action_pressed("left") || Input.is_action_pressed("right"):
+#				player.anim_player.play("run_e" if player.dir.x > 0 else "run_w")
+#		else:
+#			player.anim_player.play("idle_e" if player.dir.x > 0 else "idle_w")
+
+		if player.vel != Vector2.ZERO:
+			var anim_name = "run_"
+
 			if Input.is_action_pressed("left") || Input.is_action_pressed("right"):
-				player.anim_player.play("run_e" if player.dir.x > 0 else "run_w")
+				anim_name += "w" if player.dir.x < 0 else "e"
+			if Input.is_action_pressed("up") || Input.is_action_pressed("down"):
+				anim_name += "u" if player.dir.y < 0 else "d"
+
+			player.anim_player.play(anim_name)
 		else:
-			player.anim_player.play("idle_e" if player.dir.x > 0 else "idle_w")
+			if Input.is_action_pressed("up"):
+				player.anim_player.play("idle_u")
+			else:
+				player.anim_player.play("idle_w" if player.dir.x < 0 else "idle_e")
 
 		#Todo esto lo saque de input ya que esa funcion solo se ejecuta si hay algun evento
 		#Eso hacía que si yo mantenia una tecla presionada y no cambiaba nada, al caer al suelo
@@ -127,11 +142,20 @@ class IdleState extends State:
 			player.shoot()
 
 		# si usas event tiene un delay feo... que onda?
-		var dir = Input.get_action_strength("right") - Input.get_action_strength("left")
-		if dir != 0:
-			player.dir.x = dir
+#		var dir = Input.get_action_strength("right") - Input.get_action_strength("left")
 
-		player.vel.x = dir*player.speed
+		var dir = Vector2()
+
+		if Input.is_action_pressed("left") || Input.is_action_pressed("right"):
+			dir.x = Input.get_action_strength("right") - Input.get_action_strength("left")
+
+		if Input.is_action_pressed("down") || Input.is_action_pressed("up"):
+			dir.y = Input.get_action_strength("down") - Input.get_action_strength("up")
+
+		if dir != Vector2.ZERO:
+			player.dir = dir
+
+		player.vel.x = dir.x*player.speed
 		# Agregué esto simplemente para que no quede la animación de correr mientras caes cuando te caiste por un borde
 		if !player.is_on_floor():
 			var state := JumpState.new(player, 0)
