@@ -27,11 +27,11 @@ __meta__ = {
 position = Vector2( 0.999985, 0 )
 
 [node name="Glider" parent="Map" instance=ExtResource( 5 )]
-position = Vector2( 2148, 76 )
+position = Vector2( 3191, 208 )
 z_index = 1
 
 [node name="Player" parent="Map" instance=ExtResource( 1 )]
-position = Vector2( 2505, 198 )
+position = Vector2( 2939, -104 )
 z_index = 1
 
 [node name="Camera2D" type="Camera2D" parent="Map/Player"]
@@ -39,16 +39,12 @@ position = Vector2( 0, -3 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
 limit_left = 0
-limit_top = 0
+limit_top = -500
 limit_right = 1000000
 limit_bottom = 352
 limit_smoothed = true
 smoothing_enabled = true
 smoothing_speed = 10.0
-drag_margin_left = 0.0
-drag_margin_top = 0.0
-drag_margin_right = 0.0
-drag_margin_bottom = 0.0
 editor_draw_limits = true
 editor_draw_drag_margin = true
 
@@ -92,8 +88,8 @@ position = Vector2( 2567, 216 )
 position = Vector2( 3607, 168 )
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2( 2371, 270 )
-collision_layer = 0
+position = Vector2( 3576, 40 )
+collision_layer = 2
 collision_mask = 0
 __meta__ = {
 "_edit_group_": true

@@ -17,7 +17,6 @@ var dir : Vector2
 var spawner : Node
 
 func _ready() -> void:
-	print(dir)
 	vel = initial_speed * dir
 
 func _physics_process(delta: float) -> void:
