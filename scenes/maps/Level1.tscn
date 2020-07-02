@@ -10,10 +10,7 @@
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.95, 1 )
-motion_mirroring = Vector2( 640, 0 )
-__meta__ = {
-"_edit_lock_": true
-}
+motion_mirroring = Vector2( 640, 320 )
 
 [node name="Sprite_background" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
 modulate = Color( 0.00392157, 0.101961, 0.317647, 1 )

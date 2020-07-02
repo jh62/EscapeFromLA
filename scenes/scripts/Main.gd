@@ -17,8 +17,7 @@ func _ready() -> void:
 				c.queue_free()
 
 func _process(delta: float) -> void:
-	if $TextureRect.visible:
-		$TextureRect.set_global_position(player.global_position - $TextureRect.rect_size / 2)
+	pass
 
 func _physics_process(delta: float) -> void:
 	pass
@@ -26,9 +25,9 @@ func _physics_process(delta: float) -> void:
 func _on_Area2D_body_entered(body: Node) -> void:
 	var next_scene = load("res://scenes/StageB_Intro.tscn")
 	$Area2D.queue_free()
-	$Tween.interpolate_property($TextureRect,"modulate",Color(0,0,0,0),Color(0,0,0,1),5,Tween.TRANS_LINEAR,Tween.EASE_OUT,0)
+	$Canvas/TextureRect.visible = true
+	$Tween.interpolate_property($Canvas/TextureRect,"modulate",Color(0,0,0,0),Color(0,0,0,1),5,Tween.TRANS_LINEAR,Tween.EASE_IN)
 	$Tween.start()
-	$TextureRect.visible = true
 	yield($Tween,"tween_all_completed")
 	get_tree().change_scene_to(next_scene)
 

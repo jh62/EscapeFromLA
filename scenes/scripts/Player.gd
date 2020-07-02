@@ -202,5 +202,6 @@ class GlideState extends State:
 		player.global_position = glider.global_position
 
 func _on_Glider__on_picked_up(glider) -> void:
+	$AnimationPlayer.play("jump_e")
 	var state = GlideState.new(self,glider)
 	change_state(state)
