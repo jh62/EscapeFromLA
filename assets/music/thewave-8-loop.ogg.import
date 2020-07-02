@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/thewave-8-loop.ogg-7c47810baae2a4a04e647823d3472c1e.oggstr"
+
+[deps]
+
+source_file="res://assets/music/thewave-8-loop.ogg"
+dest_files=[ "res://.import/thewave-8-loop.ogg-7c47810baae2a4a04e647823d3472c1e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

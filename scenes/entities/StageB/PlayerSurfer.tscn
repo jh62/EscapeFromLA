@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/snd/surf.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/new_spriteframes.tres" type="SpriteFrames" id=5]
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=1]
 resource_name = "die"
 length = 0.5
 tracks/0/type = "value"
@@ -236,7 +236,7 @@ tracks/18/keys = {
 "values": [  ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=2]
 resource_name = "idle"
 length = 0.3
 loop = true
@@ -445,7 +445,7 @@ tracks/16/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=3]
 resource_name = "move_down"
 length = 0.3
 loop = true
@@ -642,7 +642,7 @@ tracks/15/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 resource_name = "move_up"
 length = 0.3
 loop = true
@@ -839,17 +839,19 @@ tracks/15/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="CapsuleShape2D" id=7]
+[sub_resource type="CapsuleShape2D" id=5]
 
 [node name="PlayerSurfer" type="KinematicBody2D"]
 script = ExtResource( 1 )
 speed = 200
 bounce = 20.0
+reload_time = 0.89
 
 [node name="SpriteSplash" type="AnimatedSprite" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 scale = Vector2( 1, 1.04237 )
 frames = ExtResource( 5 )
+frame = 1
 playing = true
 offset = Vector2( -16, 0 )
 
@@ -871,15 +873,15 @@ region_enabled = true
 region_rect = Rect2( 2586, 21, 52, 24 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/die = SubResource( 8 )
-anims/idle = SubResource( 4 )
-anims/move_down = SubResource( 5 )
-anims/move_up = SubResource( 6 )
+anims/die = SubResource( 1 )
+anims/idle = SubResource( 2 )
+anims/move_down = SubResource( 3 )
+anims/move_up = SubResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( 0, -16 )
-shape = SubResource( 7 )
+shape = SubResource( 5 )
 
 [node name="BulletPos" type="Position2D" parent="."]
 visible = false

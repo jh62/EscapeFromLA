@@ -13,8 +13,9 @@ enum STATES {
 	DIYING
 }
 
+export(int) var health := 100
 export(float) var speed := 180.0
-export var damage : float = 25
+export(float) var damage := 25
 
 onready var anim_player : AnimationPlayer = $AnimationPlayer
 onready var audio = $AudioStreamPlayer

@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/bullet.png" type="Texture" id=2]
 [ext_resource path="res://scenes/scripts/Bullet.gd" type="Script" id=3]
 
-[sub_resource type="CircleShape2D" id=10]
+[sub_resource type="CircleShape2D" id=1]
 radius = 3.63069
 
 [node name="Bullet" type="KinematicBody2D"]
@@ -19,10 +19,9 @@ texture = ExtResource( 2 )
 visible = false
 scale = Vector2( 0.25, 0.25 )
 frames = ExtResource( 1 )
-animation = "explode"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 10 )
+shape = SubResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 position = Vector2( -4, -4 )

@@ -39,6 +39,9 @@ const SOUNDS = {
 	]
 }
 
+var intro_skipped = false
+var intro_stageB_skipped = false
+
 func _ready() -> void:
 	pass
 

@@ -24,12 +24,13 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func _on_Area2D_body_entered(body: Node) -> void:
+	var next_scene = load("res://scenes/StageB_Intro.tscn")
 	$Area2D.queue_free()
 	$Tween.interpolate_property($TextureRect,"modulate",Color(0,0,0,0),Color(0,0,0,1),5,Tween.TRANS_LINEAR,Tween.EASE_OUT,0)
 	$Tween.start()
 	$TextureRect.visible = true
 	yield($Tween,"tween_all_completed")
-	print("change scene")
+	get_tree().change_scene_to(next_scene)
 
 func on_enemy_die() -> void:
 	$Tween.interpolate_property($Canvas/Flash,"visible",false,true,.1,Tween.TRANS_LINEAR)

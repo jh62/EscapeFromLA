@@ -8,21 +8,21 @@ enum State {
 }
 
 export(float) var speed = 100
-export(Vector2) var initial_speed = Vector2(100,0)
+export(Vector2) var initial_speed = Vector2(1200,0)
 
 onready var state = State.FLYING
+onready var vel : Vector2 = initial_speed
 
 var dir : Vector2
-var vel : Vector2 = initial_speed
 var spawner : Node
 
 func _ready() -> void:
-	pass
+	vel = initial_speed * dir
 
 func _physics_process(delta: float) -> void:
 	match state:
 		State.FLYING:
-			vel += speed * delta * dir
+			vel += dir * speed * delta
 #			vel.x += (initial_speed + speed * delta) * dir.x
 			vel = move_and_slide(vel)
 			if get_slide_count() > 0:
