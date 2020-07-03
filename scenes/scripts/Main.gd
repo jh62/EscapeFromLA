@@ -48,3 +48,11 @@ func _on_body_shoot(attacker, pos,dir) -> void:
 	b.dir = dir
 	b.connect("_on_bullet_hit",self,"on_bullet_hit")
 	$Map.add_child(b)
+
+func _on_Player__on_death() -> void:
+	$Tween.interpolate_property($Canvas/Label,"visible_characters",0,11,2,Tween.TRANS_LINEAR)
+	$Tween.start()
+	$AudioStreamPlayer.stream = load("res://assets/snd/snaake.wav")
+	$AudioStreamPlayer.play()
+	yield($AudioStreamPlayer,"finished")
+	get_tree().reload_current_scene()

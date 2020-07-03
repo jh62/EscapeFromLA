@@ -851,7 +851,6 @@ reload_time = 0.89
 modulate = Color( 1, 1, 1, 0 )
 scale = Vector2( 1, 1.04237 )
 frames = ExtResource( 5 )
-frame = 1
 playing = true
 offset = Vector2( -16, 0 )
 

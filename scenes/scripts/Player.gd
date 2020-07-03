@@ -3,14 +3,7 @@ extends KinematicBody2D
 class_name Player
 
 signal _on_shoot(this, pos,dir)
-
-enum STATES {
-	IDLE,
-	MOVING,
-	RUNNING,
-	JUMPING
-	DIYING
-}
+signal _on_death
 
 export(int) var health := 100
 export(float) var speed := 180.0
@@ -25,7 +18,7 @@ onready var shape : CollisionShape2D = $CollisionShape2D
 onready var current_state : State = IdleState.new(self) setget change_state
 
 var vel := Vector2()
-var dir := Vector2()
+var dir := Vector2(1,0)
 var knockback := Vector2(25,0)
 
 func _ready() -> void:
@@ -36,6 +29,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	current_state._process(delta)
+
+	if !(current_state is DeathState) && global_position.y > 352:
+		current_state = DeathState.new(self)
 
 func _physics_process(delta: float) -> void:
 	current_state._physics_process(delta)
@@ -65,18 +61,15 @@ func shoot():
 func on_hit(attacker,target) -> void:
 	if target != self:
 		return
+	if current_state is DeathState:
+		return
 
 	health -= attacker.damage
 	$BloodFX.one_shot = true
 	$BloodFX.visible = true
 	$BloodFX.emitting = true
 	if health <= 0:
-#		current_state = STATES.DIYING
-		vel = Vector2.ZERO
-		if dir.x < 0:
-			$AnimationPlayer.play("die_w")
-		else:
-			$AnimationPlayer.play("die_e")
+		current_state = DeathState.new(self)
 		return
 	else:
 		$AudioStreamPlayer.stream = Global.getSound("hurt")
@@ -186,6 +179,34 @@ class JumpState extends State:
 				dir -= 1
 			player.vel.x = lerp(player.vel.x, dir*player.speed, 0.05)
 
+
+	func input(event : InputEvent):
+		pass
+
+class DeathState extends State:
+	var dead = false
+
+	func _init(p).(p) -> void:
+		player.vel = Vector2.ZERO
+		player.set_collision_layer_bit(1,false)
+
+	func _process(delta):
+		if dead:
+			return
+
+		dead = true
+		player.anim_player.play("die_e" if player.dir.x > 0 else "die_w")
+		player.audio.stream = load("res://assets/snd/scream.wav")
+		player.audio.play()
+		yield(player.anim_player,"animation_finished")
+		if player.audio.playing:
+			yield(player.audio,"finished")
+		player.emit_signal("_on_death")
+
+	func _physics_process(delta):
+		if !player.is_on_floor():
+			player.vel += Global.GRAVITY*delta
+			player.vel = player.move_and_slide((player.vel),Global.UP_DIRECTION)
 
 	func input(event : InputEvent):
 		pass

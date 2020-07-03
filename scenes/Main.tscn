@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/maps/Level1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/music/escapela.ogg" type="AudioStream" id=3]
 [ext_resource path="res://scenes/scripts/Main.gd" type="Script" id=4]
 [ext_resource path="res://scenes/entities/Glider.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/font_bulky.tres" type="DynamicFont" id=6]
 [ext_resource path="res://scenes/Elevator.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -36,7 +37,7 @@ position = Vector2( 3143, -112 )
 z_index = 1
 
 [node name="Player" parent="Map" instance=ExtResource( 1 )]
-position = Vector2( 2991, -85 )
+position = Vector2( 39, -16 )
 z_index = 1
 
 [node name="Camera2D" type="Camera2D" parent="Map/Player"]
@@ -170,9 +171,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Label" type="Label" parent="Canvas"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 6 )
+text = "SNAAAAAAKE!"
+align = 1
+valign = 1
+percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 autoplay = true
 [connection signal="_on_picked_up" from="Map/Glider" to="Map/Player" method="_on_Glider__on_picked_up"]
+[connection signal="_on_death" from="Map/Player" to="." method="_on_Player__on_death"]
 [connection signal="_on_shoot" from="Map/Player" to="." method="_on_body_shoot"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

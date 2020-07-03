@@ -29,7 +29,7 @@ class_name Enemy
 func _ready() -> void:
 	connect("_on_shoot",get_tree().current_scene,"_on_body_shoot")
 	randomize()
-	$TimerThink.start(3)
+	$TimerThink.start(randi()%2+1)
 	$BloodFX.emitting = false
 	state = STATES.MOVING
 	add_to_group("enemy")
@@ -107,9 +107,10 @@ func _on_TimerThink_timeout() -> void:
 	if knows > .9:
 		return
 	if .85 > randf():
-		dir = Vector2(-dir.x,0)
-		$TimerThink.wait_time = randi()%3+8
-
+		dir.x *= -1
+		randomize()
+		$TimerThink.wait_time = randi()%2+1
+	print("thinking")
 	if dir.x == -1 && $RaycastRoot/RayCastLeft.is_colliding():
 		dir = Vector2(-1,0)
 	elif dir.x == 1 && $RaycastRoot/RayCastRight.is_colliding():
@@ -148,7 +149,6 @@ func _on_TimerKnowsFade_timeout() -> void:
 
 func _on_TimerShoot_timeout() -> void:
 	if state != STATES.SHOOTING:
-		print("cant shoot")
 		return
 #	elif !$ShootRay.is_colliding():
 #		state = STATES.MOVING

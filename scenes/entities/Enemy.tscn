@@ -923,6 +923,7 @@ tracks/6/keys = {
 collision_layer = 4
 collision_mask = 15
 script = ExtResource( 2 )
+damage = 25.0
 
 [node name="ShootRay" type="RayCast2D" parent="."]
 position = Vector2( 0, -28 )
@@ -979,6 +980,7 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -18 )
 flip_h = true
 hframes = 24
+frame = 3
 region_rect = Rect2( 8, 10, 20, 28 )
 
 [node name="SpriteKnows" type="Sprite" parent="."]
@@ -1000,7 +1002,7 @@ wait_time = 0.9
 one_shot = true
 
 [node name="BulletPos" type="Position2D" parent="."]
-position = Vector2( -17.3932, -26.5969 )
+position = Vector2( -17.9545, -26.5969 )
 [connection signal="timeout" from="TimerThink" to="." method="_on_TimerThink_timeout"]
 [connection signal="timeout" from="TimerKnowsFade" to="." method="_on_TimerKnowsFade_timeout"]
 [connection signal="timeout" from="TimerShoot" to="." method="_on_TimerShoot_timeout"]
