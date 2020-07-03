@@ -6,7 +6,7 @@
 [ext_resource path="res://scenes/scripts/StageB/EnemySurfer.gd" type="Script" id=4]
 [ext_resource path="res://assets/knows.png" type="Texture" id=5]
 
-[sub_resource type="CapsuleShape2D" id=5]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 22.0
 
 [sub_resource type="Animation" id=2]
@@ -121,8 +121,7 @@ tracks/8/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "idle"
+[sub_resource type="Animation" id=3]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -330,8 +329,7 @@ tracks/16/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "move_down"
+[sub_resource type="Animation" id=4]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -515,8 +513,7 @@ tracks/14/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "move_up"
+[sub_resource type="Animation" id=5]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -712,15 +709,19 @@ tracks/15/keys = {
 "values": [ 0.0 ]
 }
 
-[node name="EnemySurfer" type="KinematicBody2D"]
+[node name="EnemySurfer" type="KinematicBody2D" groups=[
+"enemies",
+]]
 position = Vector2( -1, -1 )
+collision_layer = 4
+collision_mask = 0
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 disabled = true
 
 [node name="SpriteSplash" type="AnimatedSprite" parent="."]
@@ -754,9 +755,9 @@ region_rect = Rect2( 640, 22, 26, 16 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
 anims/die = SubResource( 2 )
-anims/idle = SubResource( 1 )
-anims/move_down = SubResource( 3 )
-anims/move_up = SubResource( 4 )
+anims/idle = SubResource( 3 )
+anims/move_down = SubResource( 4 )
+anims/move_up = SubResource( 5 )
 
 [node name="BulletOffset" type="Position2D" parent="."]
 position = Vector2( -17, -6 )
