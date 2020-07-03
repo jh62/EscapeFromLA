@@ -28,6 +28,7 @@ onready var target : KinematicBody2D= get_tree().current_scene.find_node("Player
 func _ready() -> void:
 	randomize()
 	stop_force = rand_range(.2,0.97)
+	$BloodFX.emitting = false
 	add_to_group("enemies")
 	connect("_on_shoot",get_tree().current_scene,"on_enemy_shoot")
 	connect("_on_enemy_die",get_tree().current_scene,"on_enemy_die")
@@ -85,6 +86,9 @@ func  on_hit(attacker : Node2D) -> void:
 		health -= 50
 	elif attacker.is_in_group("grenades"):
 		health -= 100
+
+	$BloodFX.emitting = true
+	$BloodFX.one_shot = true
 
 	if health <= 0:
 		state = State.DYING

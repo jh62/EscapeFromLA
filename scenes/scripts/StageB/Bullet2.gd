@@ -34,6 +34,7 @@ func _on_BulletRound_body_entered(body: Node) -> void:
 	if body.is_in_group("enemies"):
 		if type != Global.BulletType.ENEMY:
 			body.on_hit(self)
+			print("enemy")
 		else:
 			return
 

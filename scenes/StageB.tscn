@@ -102,6 +102,15 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="Control"]
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Hud"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="_on_grenade_throw" from="Map/Player" to="." method="_on_Player__on_grenade_throw"]
 [connection signal="_on_player_death" from="Map/Player" to="." method="_on_Player__on_player_death"]
 [connection signal="_on_shoot" from="Map/Player" to="." method="_on_Player__on_shoot"]
