@@ -4,6 +4,7 @@ extends Node2D
 onready var Crosshair = preload("res://assets/stageB/crosshair.png")
 onready var Bullet = preload("res://scenes/entities/StageB/Bullet2.tscn")
 onready var Grenade = preload("res://scenes/entities/Grenade.tscn")
+onready var Grenade2 = preload("res://scenes/entities/StageB/Grenade2.tscn")
 onready var Enemy = preload("res://scenes/entities/StageB/EnemySurfer.tscn")
 
 export(int) var MAX_ENEMY_COUNT = 12
@@ -29,10 +30,15 @@ func on_enemy_shoot(pos : Vector2) -> void:
 	bullet.type = Global.BulletType.ENEMY
 
 func _on_Player__on_grenade_throw(throw_pos) -> void:
-	var g = Grenade.instance()
-	g.global_position = throw_pos
-	g.target_pos = get_global_mouse_position()
+#	var g = Grenade.instance()
+#	g.global_position = throw_pos
+#	g.target_pos = get_global_mouse_position()
+#	$Map.add_child(g)
+	var g : Grenade2 = Grenade2.instance()
 	$Map.add_child(g)
+	g.global_position = player.global_position
+	g.start_position = player.global_position
+	g.end_position = get_global_mouse_position()
 
 func spawnBullet(from, to) -> Node2D:
 	var b = Bullet.instance()
