@@ -791,7 +791,7 @@ tracks/4/keys = {
 "values": [ Vector2( -6.62534, -1.67374 ) ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=8]
 resource_name = "jump_w"
 length = 0.8
 loop = true
@@ -1266,7 +1266,7 @@ tracks/10/keys = {
 "values": [ -30.0 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=12]
 resource_name = "run_w"
 length = 0.8
 loop = true
@@ -1403,7 +1403,7 @@ tracks/10/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=13]
 resource_name = "run_wd"
 length = 0.7
 loop = true
@@ -1540,7 +1540,7 @@ tracks/10/keys = {
 "values": [ -30.0 ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=14]
 resource_name = "run_wu"
 length = 0.7
 loop = true
@@ -1719,18 +1719,22 @@ anims/idle_e = SubResource( 4 )
 anims/idle_u = SubResource( 5 )
 anims/idle_w = SubResource( 6 )
 anims/jump_e = SubResource( 7 )
-anims/jump_w = SubResource( 15 )
+anims/jump_w = SubResource( 8 )
 anims/run_e = SubResource( 9 )
 anims/run_ed = SubResource( 10 )
 anims/run_eu = SubResource( 11 )
-anims/run_w = SubResource( 16 )
-anims/run_wd = SubResource( 17 )
-anims/run_wu = SubResource( 18 )
+anims/run_w = SubResource( 12 )
+anims/run_wd = SubResource( 13 )
+anims/run_wu = SubResource( 14 )
 
 [node name="BulletPos" type="Position2D" parent="."]
 position = Vector2( -11.5878, -14.0782 )
 
 [node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 0.65
 one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -1741,3 +1745,4 @@ collision_mask = 12
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]

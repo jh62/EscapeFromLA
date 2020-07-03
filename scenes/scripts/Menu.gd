@@ -19,11 +19,11 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	match state:
 		"menu":
-			if event.is_action_pressed("ui_up"):
+			if event.is_action_pressed("up"):
 				pointer_pos -= 1
-			elif event.is_action_pressed("ui_down"):
+			elif event.is_action_pressed("down"):
 				pointer_pos += 1
-			elif event.is_action_pressed("ui_select"):
+			elif event.is_action_pressed("shoot") || event.is_action_pressed("shoot_joy"):
 				match pointer_pos:
 					1:
 						showCredits()

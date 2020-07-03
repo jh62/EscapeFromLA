@@ -19,7 +19,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ Rect2( 2454, 5, 36, 41 ), Rect2( 2519, 10, 41, 36 ), Rect2( 2586, 21, 52, 24 ) ]
+"values": [ Rect2( 2454, 2, 36, 44 ), Rect2( 2519, 7, 41, 39 ), Rect2( 2584, 19, 54, 26 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SpritePlayer:offset")
@@ -250,7 +250,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Rect2( 579, 5, 31, 41 ) ]
+"values": [ Rect2( 0, 3, 32, 43 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SpritePlayer:offset")
@@ -370,7 +370,7 @@ tracks/10/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 8, -16 ), Vector2( 8, -17 ), Vector2( 10, -17 ) ]
+"values": [ Vector2( 3, -16 ), Vector2( 4, -17 ), Vector2( 3, -18 ) ]
 }
 tracks/11/type = "value"
 tracks/11/path = NodePath("SpritePlayer:rotation_degrees")
@@ -459,7 +459,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Rect2( 1365, 4, 35, 42 ) ]
+"values": [ Rect2( 1731, 1, 29, 45 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SpritePlayer:offset")
@@ -567,7 +567,7 @@ tracks/9/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 7, -17 ), Vector2( 7, -18 ), Vector2( 8, -16 ), Vector2( 7, -18 ) ]
+"values": [ Vector2( 8, -19 ), Vector2( 7, -22 ), Vector2( 8, -18 ), Vector2( 7, -18 ) ]
 }
 tracks/10/type = "value"
 tracks/10/path = NodePath("SpriteWaterboard:position")
@@ -656,7 +656,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Rect2( 1155, 4, 28, 42 ) ]
+"values": [ Rect2( 867, 2, 28, 44 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SpritePlayer:offset")
@@ -788,7 +788,7 @@ tracks/11/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 7, -17 ), Vector2( 6, -17 ), Vector2( 7, -19 ) ]
+"values": [ Vector2( 7, -17 ), Vector2( 9, -15 ), Vector2( 9, -16 ) ]
 }
 tracks/12/type = "value"
 tracks/12/path = NodePath("SpritePlayer:modulate")
@@ -840,6 +840,7 @@ tracks/15/keys = {
 }
 
 [sub_resource type="CapsuleShape2D" id=5]
+height = 4.0
 
 [node name="PlayerSurfer" type="KinematicBody2D"]
 collision_layer = 2
@@ -850,7 +851,7 @@ bounce = 20.0
 reload_time = 0.89
 
 [node name="SpriteSplash" type="AnimatedSprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 2, -2 )
 scale = Vector2( 1, 1.04237 )
 frames = ExtResource( 5 )
 frame = 1
@@ -858,21 +859,18 @@ playing = true
 offset = Vector2( -16, 0 )
 
 [node name="SpriteWaterboard" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 38, 10 )
-rotation = 1.63188
+position = Vector2( -1, 0 )
 texture = ExtResource( 2 )
 flip_h = true
 region_enabled = true
 region_rect = Rect2( 0, 8, 34, 8 )
 
 [node name="SpritePlayer" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( -43, 11 )
+position = Vector2( 3, -18 )
 texture = ExtResource( 3 )
 offset = Vector2( -2, -3 )
 region_enabled = true
-region_rect = Rect2( 2586, 21, 52, 24 )
+region_rect = Rect2( 0, 3, 32, 43 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/die = SubResource( 1 )
@@ -881,9 +879,10 @@ anims/move_down = SubResource( 3 )
 anims/move_up = SubResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( 0, -16 )
+position = Vector2( 0, -30 )
 shape = SubResource( 5 )
+
+[node name="Position2D" type="Position2D" parent="CollisionShape2D"]
 
 [node name="BulletPos" type="Position2D" parent="."]
 visible = false
@@ -893,6 +892,7 @@ position = Vector2( 20, -26 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+volume_db = -10.0
 
 [node name="TimerShoot" type="Timer" parent="."]
 wait_time = 0.15
@@ -908,3 +908,4 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 [connection signal="timeout" from="TimerReload" to="." method="_on_TimerReload_timeout"]
+[connection signal="timeout" from="TimerGrenade" to="." method="_on_TimerGrenade_timeout"]

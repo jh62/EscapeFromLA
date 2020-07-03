@@ -874,6 +874,15 @@ __meta__ = {
 position = Vector2( 0, 8 )
 shape = SubResource( 4 )
 
+[node name="BloodFX" parent="." instance=ExtResource( 2 )]
+position = Vector2( 4, -2 )
+amount = 10
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2( 100, 20 )
+gravity = Vector2( 100, 1000 )
+initial_velocity = 150.0
+
 [node name="SpriteSplash" type="AnimatedSprite" parent="."]
 position = Vector2( 15, 35 )
 rotation = 0.785398
@@ -919,8 +928,5 @@ autostart = true
 [node name="TimerShoot" type="Timer" parent="."]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[node name="BloodFX" parent="." instance=ExtResource( 2 )]
-position = Vector2( 4, -2 )
 [connection signal="timeout" from="TimerThink" to="." method="_on_TimerThink_timeout"]
 [connection signal="timeout" from="TimerShoot" to="." method="_on_TimerShoot_timeout"]

@@ -8,15 +8,18 @@ signal _on_death
 export(int) var health := 100
 export(float) var speed := 180.0
 export(float) var damage := 25
+export(int) var max_bullets := 20
 
 onready var anim_player : AnimationPlayer = $AnimationPlayer
 onready var audio = $AudioStreamPlayer
 onready var timer_shoot : Timer = $Timer
 onready var raycast : RayCast2D = $RayCast2D
 onready var shape : CollisionShape2D = $CollisionShape2D
+onready var reload_timer : Timer = $Timer2
 
 onready var current_state : State = IdleState.new(self) setget change_state
 
+var bullets := 20
 var vel := Vector2()
 var dir := Vector2(1,0)
 var knockback := Vector2(25,0)
@@ -50,7 +53,17 @@ func change_state(new_state : State) -> void:
 func is_shooting() -> bool:
 	return !$Timer.is_stopped()
 
+func is_reloading()->bool:
+	return !reload_timer.is_stopped()
+
 func shoot():
+	if bullets == 0:
+		audio.stream = Global.getSound("dry")
+		audio.pitch_scale = rand_range(.97,1)
+		audio.play()
+		return
+
+	consume_bullet()
 	emit_signal("_on_shoot",self, $BulletPos.global_position, dir)
 	$Timer.start(.05)
 	$MuzzlePos/Sprite_Muzzle.visible = true
@@ -76,6 +89,11 @@ func on_hit(attacker,target) -> void:
 		$AudioStreamPlayer.pitch_scale = 1.0
 		$AudioStreamPlayer.play()
 
+func consume_bullet() -> void:
+	bullets -= 1
+	if bullets < 0:
+		bullets = 0
+
 func _on_Timer_timeout() -> void:
 	$MuzzlePos/Sprite_Muzzle.visible = false
 	pass
@@ -93,6 +111,8 @@ class State:
 		pass
 
 class IdleState extends State:
+	var reloading = false
+
 	func _init(p).(p) -> void:
 		pass
 
@@ -116,7 +136,7 @@ class IdleState extends State:
 				player.change_state(state)
 				return
 
-		if !player.is_shooting() && Input.is_action_just_pressed("shoot"):
+		if !player.is_shooting() && !player.is_reloading() && (Input.is_action_just_pressed("shoot") || Input.is_action_just_pressed("shoot_joy")):
 			player.shoot()
 
 		# si usas event tiene un delay feo... que onda?
@@ -141,6 +161,11 @@ class IdleState extends State:
 #		if player.get_slide_count() > 0:
 #			if player.get_slide_collision(0).collider is Item:
 #				pass
+	func input(event: InputEvent) -> void:
+		if event.is_action_pressed("reload") && player.bullets < player.max_bullets && player.reload_timer.is_stopped():
+			player.reload_timer.start()
+			player.audio.stream = Global.getSound("reload")
+			player.audio.play()
 
 class JumpState extends State:
 	onready var jump_force = Vector2()
@@ -226,3 +251,7 @@ func _on_Glider__on_picked_up(glider) -> void:
 	$AnimationPlayer.play("jump_e")
 	var state = GlideState.new(self,glider)
 	change_state(state)
+
+
+func _on_Timer2_timeout() -> void:
+	bullets = max_bullets

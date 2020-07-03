@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 	global_position = global_position.move_toward(target_pos, speed * delta)
 
 	if global_position.distance_to(target_pos) < 1:
-		splash()
+		explode("splash")
 
 func _on_VisibilityNotifier2D_screen_exited() -> void:
 	queue_free()
@@ -24,8 +24,6 @@ func _on_BulletRound_body_entered(body: Node) -> void:
 	if body.is_in_group("bounds"):
 		#bug, despues lo veo :d
 		queue_free()
-	if body.is_in_group("bullets"):
-		return
 	if body.is_in_group("player"):
 		if type != Global.BulletType.PLAYER:
 			body.on_hit(self)
@@ -34,14 +32,10 @@ func _on_BulletRound_body_entered(body: Node) -> void:
 	if body.is_in_group("enemies"):
 		if type != Global.BulletType.ENEMY:
 			body.on_hit(self)
-			print("enemy")
 		else:
 			return
 
 	explode()
-
-func splash() -> void:
-	explode("splash")
 
 func explode(anim_name = "explode") -> void:
 	if is_exploding:

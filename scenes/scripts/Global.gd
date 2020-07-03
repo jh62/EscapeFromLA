@@ -13,6 +13,9 @@ const SOUNDS = {
 	"shoot" : [
 		preload("res://assets/snd/shoot-02.wav")
 	],
+	"reload" : [
+		preload("res://assets/snd/rld.wav")
+	],
 	"impact" : [
 		preload("res://assets/snd/impact-01.wav"),
 		preload("res://assets/snd/impact-02.wav")
@@ -36,6 +39,9 @@ const SOUNDS = {
 		preload("res://assets/snd/knows-01.wav"),
 		preload("res://assets/snd/knows-02.wav"),
 		preload("res://assets/snd/knows-03.wav")
+	],
+	"dry" : [
+		preload("res://assets/snd/dry.wav")
 	]
 }
 

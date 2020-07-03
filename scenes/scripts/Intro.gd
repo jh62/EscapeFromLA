@@ -1,6 +1,6 @@
 extends VideoPlayer
 
-export(PackedScene) var next = preload("res://scenes/StageB.tscn")
+export(PackedScene) var next
 
 func _ready() -> void:
 	pass

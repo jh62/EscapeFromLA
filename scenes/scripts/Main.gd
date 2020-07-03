@@ -6,6 +6,8 @@ onready var player = $Map/Player
 
 func _ready() -> void:
 	player.connect("_on_player_shoot",self,"on_player_shoot")
+	$Hud/Control/CenterContainer/TextureProgress.max_value = 50
+	$Hud/Control/CenterContainer/TextureProgress.step = 25
 
 	for c in $Map.get_children():
 		if c is Position2D:
@@ -17,7 +19,8 @@ func _ready() -> void:
 				c.queue_free()
 
 func _process(delta: float) -> void:
-	pass
+	$Hud/Control/Label.text = str(player.bullets)
+	$Hud/Control/CenterContainer/TextureProgress.value = player.health
 
 func _physics_process(delta: float) -> void:
 	pass

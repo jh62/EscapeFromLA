@@ -110,7 +110,6 @@ func _on_TimerThink_timeout() -> void:
 		dir.x *= -1
 		randomize()
 		$TimerThink.wait_time = randi()%2+1
-	print("thinking")
 	if dir.x == -1 && $RaycastRoot/RayCastLeft.is_colliding():
 		dir = Vector2(-1,0)
 	elif dir.x == 1 && $RaycastRoot/RayCastRight.is_colliding():

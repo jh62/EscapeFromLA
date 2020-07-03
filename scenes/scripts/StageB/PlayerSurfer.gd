@@ -1,10 +1,12 @@
 extends KinematicBody2D
 
-signal _on_shoot(bullet_pos)
-signal _on_grenade_throw(throw_pos)
+signal _on_shoot(bullet_pos, joy)
+signal _on_grenade_throw(throw_pos, joy)
+signal _on_grenade_ready()
 signal _on_player_death()
 
 enum State {
+	IDLE,
 	MOVING,
 	DYING,
 	DEAD
@@ -15,6 +17,7 @@ const bullet_offset := Vector2(32,32)
 onready var snd_reload = preload("res://assets/snd/rld.wav")
 onready var snd_dry = preload("res://assets/snd/dry.wav")
 onready var snd_scream = preload("res://assets/snd/scream.wav")
+onready var player_center = $CollisionShape2D/Position2D # fiaca
 
 export(int) var health = 100
 export(int) var speed = 100
@@ -64,18 +67,20 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	match state:
 		State.MOVING:
-			if event.is_action_pressed("shoot") && $TimerReload.is_stopped():
+			var from_joy = event.is_action_pressed("shoot_joy")
+			var from_joy_n = event.is_action_pressed("secondary_joy")
+			if from_joy || event.is_action_pressed("shoot") && $TimerReload.is_stopped():
 				if bullets > 0:
-					emit_signal("_on_shoot", $BulletPos.global_position)
+					emit_signal("_on_shoot", $BulletPos.global_position, from_joy)
 					bullets -= 1
 					if bullets < 0:
 						bullets = 0
 				else:
 					$AudioGun.stream = snd_dry
 					$AudioGun.play()
-			elif event.is_action_pressed("secondary") && $TimerGrenade.is_stopped():
+			elif (from_joy_n || event.is_action_pressed("secondary")) && $TimerGrenade.is_stopped():
 				$TimerGrenade.start()
-				emit_signal("_on_grenade_throw", global_position)
+				emit_signal("_on_grenade_throw", global_position, from_joy_n)
 			elif event.is_action_pressed("reload"):
 				if bullets < max_bullets && $TimerReload.is_stopped():
 					$AudioGun.stream = snd_reload
@@ -108,3 +113,11 @@ func on_hit(attacker) -> void:
 			yield($AudioStreamPlayer,"finished")
 		state = State.DEAD
 		emit_signal("_on_player_death")
+	else:
+		modulate = Color(1,0,0,1)
+		yield(get_tree().create_timer(.1),"timeout")
+		modulate = Color(1,1,1,1)
+
+
+func _on_TimerGrenade_timeout() -> void:
+	emit_signal("_on_grenade_ready")

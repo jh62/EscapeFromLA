@@ -103,6 +103,19 @@ func  on_hit(attacker : Node2D) -> void:
 			yield($AudioStreamPlayer,"finished")
 		queue_free()
 
+func playDead():
+	state = State.DYING
+
+	$AudioStreamPlayer.stream = Global.getSound("die")
+	$AudioStreamPlayer.pitch_scale = rand_range(.9,1.0)
+	$AudioStreamPlayer.play()
+	$AnimationPlayer.play("die")
+	yield($AnimationPlayer,"animation_finished")
+	visible = false
+	if $AudioStreamPlayer.playing:
+		yield($AudioStreamPlayer,"finished")
+	queue_free()
+
 func _on_TimerThink_timeout() -> void:
 	if target != null:
 		dir = global_position.direction_to(target.global_position)
