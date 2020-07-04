@@ -13,6 +13,7 @@ onready var player = find_node("Player")
 var enemy_count = 0
 var mts_to_finish := 1000
 var finished = false
+var quit = false
 
 func _ready() -> void:
 	$Map/Top.add_to_group("bounds")
@@ -48,6 +49,13 @@ func _process(delta: float) -> void:
 				get_tree().change_scene_to(next_scene)
 	else:
 		$Hud/LabelMiles.text = "Miles left: " + str(mts_to_finish)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		quit = !quit
+		$Hud/QuitContainer.visible = quit
+	elif quit && Input.is_action_just_pressed("jump"):
+		get_tree().change_scene("res://scenes/Menu.tscn")
 
 func _on_Player__on_shoot(pos : Vector2, is_joy = false) -> void:
 	var shoot_dir = get_global_mouse_position()

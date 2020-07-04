@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-signal _on_enemy_die()
+signal _on_enemy_die(pos)
 signal _on_shoot(this, pos,dir)
 
 export(int) var health := 100
@@ -120,11 +120,12 @@ func on_hit(attacker,target) -> void:
 		return
 
 	health -= attacker.damage
+	$TimerShoot.stop()
 	$BloodFX.one_shot = true
 	$BloodFX.visible = true
 	$BloodFX.emitting = true
 	if health <= 0:
-		emit_signal("_on_enemy_die")
+		emit_signal("_on_enemy_die",self.global_position)
 		$AudioStreamPlayer.stream = Global.getSound("die")
 		$AudioStreamPlayer.pitch_scale = rand_range(.92,1)
 		$AudioStreamPlayer.play()

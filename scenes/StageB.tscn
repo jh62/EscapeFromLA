@@ -177,6 +177,24 @@ __meta__ = {
 
 [node name="Hud" parent="." instance=ExtResource( 9 )]
 
+[node name="QuitContainer" type="CenterContainer" parent="Hud"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Hud/QuitContainer"]
+margin_left = 126.0
+margin_top = 147.0
+margin_right = 513.0
+margin_bottom = 204.0
+custom_fonts/font = ExtResource( 4 )
+text = "Quit to menu?
+Hit jump to confirm"
+align = 1
+
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 279, 342 )
 
@@ -202,3 +220,5 @@ __meta__ = {
 [connection signal="_on_shoot" from="Map/Player" to="." method="_on_Player__on_shoot"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_Timer2_timeout"]
+
+[editable path="Hud"]

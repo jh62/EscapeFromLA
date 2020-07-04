@@ -67,7 +67,7 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	match state:
 		State.MOVING:
-			var from_joy = event.is_action_pressed("shoot_joy")
+			var from_joy = event.is_action_pressed("shoot_joy") || Input.is_key_pressed(KEY_P)
 			var from_joy_n = event.is_action_pressed("secondary_joy")
 			if from_joy || event.is_action_pressed("shoot") && $TimerReload.is_stopped():
 				if bullets > 0:

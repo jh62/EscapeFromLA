@@ -9,6 +9,7 @@ export(int) var health := 100
 export(float) var speed := 180.0
 export(float) var damage := 25
 export(int) var max_bullets := 20
+export(float) var shoot_delay := .75
 
 onready var anim_player : AnimationPlayer = $AnimationPlayer
 onready var audio = $AudioStreamPlayer
@@ -18,11 +19,13 @@ onready var shape : CollisionShape2D = $CollisionShape2D
 onready var reload_timer : Timer = $Timer2
 
 onready var current_state : State = IdleState.new(self) setget change_state
+onready var shoot_sound = preload("res://assets/snd/shoot-02.wav")
 
 var bullets := 20
 var vel := Vector2()
 var dir := Vector2(1,0)
-var knockback := Vector2(25,0)
+var knockback := Vector2(0,0)
+var dry = false
 
 func _ready() -> void:
 	add_to_group("player")
@@ -41,10 +44,6 @@ func _physics_process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	current_state.input(event)
-#
-	if event.is_action_pressed("ui_cancel"):
-		global_position = Vector2(20,20)
-		current_state = IdleState.new(self)
 
 func change_state(new_state : State) -> void:
 	if new_state != current_state:
@@ -58,16 +57,21 @@ func is_reloading()->bool:
 
 func shoot():
 	if bullets == 0:
-		audio.stream = Global.getSound("dry")
-		audio.pitch_scale = rand_range(.97,1)
-		audio.play()
+		if !dry:
+			dry = true
+			audio.stream = Global.getSound("dry")
+			audio.pitch_scale = rand_range(.97,1)
+			audio.play()
 		return
 
+	knockback = Vector2(25,0) * -dir
 	consume_bullet()
 	emit_signal("_on_shoot",self, $BulletPos.global_position, dir)
-	$Timer.start(.05)
+	$Timer.start(shoot_delay)
 	$MuzzlePos/Sprite_Muzzle.visible = true
-	audio.stream = Global.getSound("shoot")
+	$Timer3.start()
+#	audio.stream = Global.getSound("shoot")
+	audio.stream = shoot_sound
 	audio.pitch_scale = rand_range(.97,1)
 	audio.play()
 
@@ -94,10 +98,6 @@ func consume_bullet() -> void:
 	if bullets < 0:
 		bullets = 0
 
-func _on_Timer_timeout() -> void:
-	$MuzzlePos/Sprite_Muzzle.visible = false
-	pass
-
 #Inner-classes
 class State:
 	var player : Player
@@ -120,6 +120,8 @@ class IdleState extends State:
 		if player.vel.x != 0:
 			if Input.is_action_pressed("left") || Input.is_action_pressed("right"):
 				player.anim_player.play("run_e" if player.dir.x > 0 else "run_w")
+			else:
+				player.anim_player.play("idle_e" if player.dir.x > 0 else "idle_w")
 		else:
 			player.anim_player.play("idle_e" if player.dir.x > 0 else "idle_w")
 
@@ -136,8 +138,9 @@ class IdleState extends State:
 				player.change_state(state)
 				return
 
-		if !player.is_shooting() && !player.is_reloading() && (Input.is_action_just_pressed("shoot") || Input.is_action_just_pressed("shoot_joy")):
+		if !player.is_shooting() && !player.is_reloading() && (Input.is_action_pressed("shoot") || Input.is_action_pressed("shoot_joy")):
 			player.shoot()
+
 
 		# si usas event tiene un delay feo... que onda?
 		var dir = Input.get_action_strength("right") - Input.get_action_strength("left")
@@ -154,9 +157,13 @@ class IdleState extends State:
 
 	func _physics_process(delta):
 		player.vel += Global.GRAVITY*delta
-		if player.is_shooting():
-			player.vel+= player.knockback * -player.dir.x
+		player.vel+= player.knockback
 		player.vel = player.move_and_slide(player.vel, Global.UP_DIRECTION)
+
+		if player.knockback != Vector2.ZERO:
+			player.knockback = lerp(player.knockback,Vector2.ZERO,(5 if player.is_shooting() else 25) * delta)
+			if player.knockback.length() < .1:
+				player.knockback = Vector2.ZERO
 
 #		if player.get_slide_count() > 0:
 #			if player.get_slide_collision(0).collider is Item:
@@ -255,3 +262,7 @@ func _on_Glider__on_picked_up(glider) -> void:
 
 func _on_Timer2_timeout() -> void:
 	bullets = max_bullets
+
+
+func _on_Timer3_timeout() -> void:
+	$MuzzlePos/Sprite_Muzzle.visible = false
